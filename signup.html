@@ -1,179 +1,432 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sign Up — Supabase</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <style>
-    /* same CSS from before */
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{font-family:Inter,Segoe UI,Roboto,system-ui,-apple-system,"Helvetica Neue",Arial;color:#0f172a;display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden;background:linear-gradient(135deg,#0f172a 0%,#07203a 100%)}
-    .bg-animated{position:fixed;inset:0;z-index:0;pointer-events:none;background: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.03), transparent 8%),radial-gradient(circle at 90% 80%, rgba(255,255,255,0.02), transparent 12%);animation: shift 12s linear infinite;mix-blend-mode:screen;filter:blur(18px) saturate(120%)}
-    @keyframes shift{0%{transform:translateY(0) scale(1)}50%{transform:translateY(-6%) scale(1.06)}100%{transform:translateY(0) scale(1)}}
-    .blob{position:fixed;border-radius:50%;opacity:0.12;filter:blur(40px);mix-blend-mode:screen}
-    .blob.a{width:540px;height:540px;left:-10%;top:-10%;background:linear-gradient(45deg,#7c3aed,#06b6d4);animation:floatA 14s ease-in-out infinite}
-    .blob.b{width:420px;height:420px;right:-8%;bottom:-8%;background:linear-gradient(45deg,#ef4444,#f97316);animation:floatB 16s ease-in-out infinite}
-    .blob.c{width:300px;height:300px;left:10%;bottom:5%;background:linear-gradient(45deg,#10b981,#60a5fa);animation:floatC 18s ease-in-out infinite}
-    @keyframes floatA{0%{transform:translateY(0) translateX(0)}50%{transform:translateY(24px) translateX(12px)}100%{transform:translateY(0) translateX(0)}}
-    @keyframes floatB{0%{transform:translateY(0) translateX(0)}50%{transform:translateY(-18px) translateX(-22px)}100%{transform:translateY(0) translateX(0)}}
-    @keyframes floatC{0%{transform:translateY(0) translateX(0)}50%{transform:translateY(30px) translateX(-10px)}100%{transform:translateY(0) translateX(0)}}
-    .card{position:relative;z-index:2;width:100%;max-width:420px;padding:28px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));backdrop-filter:blur(8px);box-shadow:0 10px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.06)}
-    header{display:flex;gap:12px;align-items:center;margin-bottom:18px}
-    .logo-wrap{width:56px;height:56px;background:linear-gradient(135deg,#ffffff,#ffffff);border-radius:12px;display:flex;align-items:center;justify-content:center;color:rgb(0, 0, 0);font-weight:700;font-size:20px;box-shadow:0 6px 18px rgba(124,58,237,0.28)}
-    h1{font-size:20px;font-weight:600;color:#e6eef8}
-    p.lead{font-size:13px;color:#cfe8ff;opacity:0.85}
-    form{display:grid;gap:12px;margin-top:6px}
-    label{font-size:12px;color:#bcd7ff}
-    input[type=text],input[type=email],input[type=password]{width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);color:#e6eef8;font-size:14px;outline:none;transition:box-shadow .18s}
-    input:focus{box-shadow:0 4px 18px rgba(96,165,250,0.12);border-color:rgba(96,165,250,0.32)}
-    .row{display:flex;gap:8px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:600}
-    .btn.primary{background:linear-gradient(90deg,#000000,#000000);color:white;box-shadow:0 8px 30px rgba(6,182,212,0.12)}
-    .btn.ghost{background:transparent;color:#cfe8ff;border:1px solid rgba(255,255,255,0.06)}
-    .muted{font-size:13px;color:#aacbff;opacity:0.8}
-    .small{font-size:12px;color:#9ec6ff}
-    .error{color:#ff7b7b;font-size:13px}
-    footer{margin-top:14px;font-size:13px;color:#cfe8ff;opacity:0.8}
-    .overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.7));z-index:5;backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .24s}
-    .overlay.show{opacity:1;pointer-events:auto}
-    .loader{width:120px;height:120px;border-radius:20px;background:linear-gradient(135deg,#0ea5e9,#7c3aed);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(15,23,42,0.6);animation:pulse 2s infinite}
-    .loader svg{width:64px;height:64px;transform-origin:center;animation:spin 1.6s linear infinite}
-    @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
-    .success{padding:14px;border-radius:10px;background:linear-gradient(90deg,#10b981,#60a5fa);color:white;font-weight:600;box-shadow:0 8px 30px rgba(16,185,129,0.12)}
-    @media (max-width:480px){.card{margin:20px;border-radius:12px;padding:18px}}
-  </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign Up | Supabase</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(-45deg, #000000, #1a1a1a, #333333, #1a1a1a);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Loading Screen Overlay */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000000;
+            z-index: 100;
+            opacity: 1;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        #loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #loading-logo {
+            width: 120px;
+            filter: invert(100%);
+            animation: pulse-glow 1s infinite ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); filter: invert(100%) drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)); }
+            50% { transform: scale(1.1); filter: invert(100%) drop-shadow(0 0 20px rgba(255, 255, 255, 0.8)); }
+        }
+
+        /* Main Login Container - renamed to signup-card for clarity */
+        .signup-card {
+            background-color: black;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .signup-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .signup-card::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            border-radius: 12px;
+            background: black;
+            background-size: 400% 400%;
+            animation: pulseBorder 5s ease infinite;
+            z-index: -1;
+            opacity: 0.8;
+            filter: blur(6px);
+        }
+
+        @keyframes pulseBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .form-logo {
+            width: 80px;
+            margin: 0 auto 1.5rem auto;
+            filter: invert(100%);
+        }
+
+        header {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo-wrap {
+            width: 56px;
+            height: 56px;
+            background: #ffffff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            font-weight: 700;
+            font-size: 20px;
+            box-shadow: 0 6px 18px rgba(255, 255, 255, 0.12);
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        }
+
+        p.lead {
+            font-size: 0.8rem;
+            color: #cccccc;
+        }
+
+        form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        label {
+            font-size: 0.75rem;
+            color: #dddddd;
+        }
+
+        input[type=text], input[type=email], input[type=password] {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: box-shadow 0.18s;
+        }
+
+        input:focus {
+            box-shadow: 0 4px 18px rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.32);
+        }
+
+        .row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn.primary {
+            background: linear-gradient(135deg, #333333, #666666);
+            color: white;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #444444, #777777);
+        }
+        
+        .btn.ghost {
+            background: transparent;
+            color: #eeeeee;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn.ghost:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .muted {
+            font-size: 0.8rem;
+            color: #bbbbbb;
+        }
+
+        .small {
+            font-size: 0.75rem;
+            color: #999999;
+        }
+
+        .error {
+            color: #ffcccc;
+            font-size: 0.8rem;
+        }
+        
+        footer {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            color: #bbbbbb;
+        }
+        
+        .footer a {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        /* Success message styling */
+        .success {
+            padding: 14px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #1a1a1a, #333333);
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        /* Loader overlay styling */
+        #overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 5;
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .24s;
+        }
+
+        #overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .loader svg {
+            width: 64px;
+            height: 64px;
+            transform-origin: center;
+            animation: spin 1.6s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0) }
+            to { transform: rotate(360deg) }
+        }
+
+        /* General element visibility */
+        .hidden-element {
+            display: none;
+        }
+
+    </style>
 </head>
 <body>
-  <div class="bg-animated"></div>
-  <div class="blob a"></div>
-  <div class="blob b"></div>
-  <div class="blob c"></div>
 
-  <main class="card">
-    <header>
-      <div class="logo-wrap">S</div>
-      <div>
-        <h1>Create your account</h1>
-        <p class="lead">Supabase signup with animation & loader.</p>
-      </div>
-    </header>
-
-    <form id="signupForm" novalidate>
-      <div>
-        <label for="fullname">Full name</label>
-        <input id="fullname" name="fullname" type="text" required placeholder="Jane Doe">
-        <div class="error" id="fullnameError"></div>
-      </div>
-      <div>
-        <label for="username">Username</label>
-        <input id="username" name="username" type="text" required placeholder="janedoe123">
-        <div class="error" id="usernameError"></div>
-      </div>
-      <div>
-        <label for="email">Email</label>
-        <input id="email" name="email" type="email" required placeholder="you@example.com">
-        <div class="error" id="emailError"></div>
-      </div>
-      <div class="row">
-        <div style="flex:1">
-          <label for="password">Password</label>
-          <input id="password" name="password" type="password" required placeholder="Create password">
-          <div class="error" id="passwordError"></div>
-        </div>
-        <div style="flex:1">
-          <label for="confirm">Confirm</label>
-          <input id="confirm" name="confirm" type="password" required placeholder="Repeat password">
-          <div class="error" id="confirmError"></div>
-        </div>
-      </div>
-      <div style="display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:6px">
-        <div class="muted small">By signing up you agree to our Terms.</div>
-        <div style="display:flex;gap:8px">
-          <button type="button" class="btn ghost" id="fillDemo">Demo</button>
-          <button type="submit" class="btn primary">Sign up</button>
-        </div>
-      </div>
-    </form>
-
-    <footer>
-      <div class="small">Already have an account? <a href="login.html" style="color:#e6f4ff;text-decoration:underline">Sign in</a></div>
-    </footer>
-  </main>
-
-  <div id="overlay" class="overlay">
-    <div class="loader">
-      <svg viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="28" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round"></circle>
-      </svg>
+    <div id="loading-screen">
+        <img id="loading-logo" src="logo-black.png" alt="Supabase Logo">
     </div>
-  </div>
 
-   <script type="module">
+    <main class="signup-card hidden-element">
+        <header>
+            <img src="logo-black.png" alt="Supabase Logo" class="form-logo" />
+            <div>
+                <h1>Create your account</h1>
+                <p class="lead">Supabase signup with animation & loader.</p>
+            </div>
+        </header>
 
+        <form id="signupForm" novalidate>
+            <div>
+                <label for="fullname">Full name</label>
+                <input id="fullname" name="fullname" type="text" required placeholder="Jane Doe">
+                <div class="error" id="fullnameError"></div>
+            </div>
+            <div>
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" required placeholder="janedoe123">
+                <div class="error" id="usernameError"></div>
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" required placeholder="you@example.com">
+                <div class="error" id="emailError"></div>
+            </div>
+            <div class="row">
+                <div style="flex:1">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" required placeholder="Create password">
+                    <div class="error" id="passwordError"></div>
+                </div>
+                <div style="flex:1">
+                    <label for="confirm">Confirm</label>
+                    <input id="confirm" name="confirm" type="password" required placeholder="Repeat password">
+                    <div class="error" id="confirmError"></div>
+                </div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:6px">
+                <div class="muted small">By signing up you agree to our Terms.</div>
+                <div style="display:flex;gap:8px">
+                    <button type="button" class="btn ghost" id="fillDemo">Demo</button>
+                    <button type="submit" class="btn primary">Sign up</button>
+                </div>
+            </div>
+        </form>
+
+        <footer>
+            <div class="small">Already have an account? <a href="login.html" style="color:#e6f4ff;text-decoration:underline">Sign in</a></div>
+        </footer>
+    </main>
+
+    <div id="overlay" class="overlay">
+        <div class="loader">
+            <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="28" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round"></circle>
+            </svg>
+        </div>
+    </div>
+
+    <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
         const supabaseUrl = 'https://aiwthvlhyyjplajtrhob.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpd3RodmxoeXlqcGxhanRyaG9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5NzUwNzQsImV4cCI6MjA3MjU1MTA3NH0.sjZoaEqik_YZJ_S4KDKaDAy5jlxquxzJGwvCrLPOcRQ';
         const supabase = createClient(supabaseUrl, supabaseKey);
 
-    const form = document.getElementById('signupForm');
-    const overlay = document.getElementById('overlay');
+        const loadingScreen = document.getElementById('loading-screen');
+        const signupCard = document.querySelector('.signup-card');
+        const form = document.getElementById('signupForm');
+        const overlay = document.getElementById('overlay');
 
-    const showError = (el, msg) => { el.textContent = msg };
-    const clearErrors = () => document.querySelectorAll('.error').forEach(e=>e.textContent='');
-    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        // Show main content after loading screen
+        setTimeout(() => {
+            loadingScreen.classList.add('fade-out');
+            signupCard.classList.remove('hidden-element');
+            signupCard.classList.add('visible');
+        }, 2000);
 
-    form.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      clearErrors();
-      const fullname = form.fullname.value.trim();
-      const username = form.username.value.trim();
-      const email = form.email.value.trim().toLowerCase();
-      const password = form.password.value;
-      const confirm = form.confirm.value;
-      let ok = true;
+        const showError = (el, msg) => { el.textContent = msg };
+        const clearErrors = () => document.querySelectorAll('.error').forEach(e => e.textContent = '');
+        const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-      if(fullname.length < 2) { showError(document.getElementById('fullnameError'),'Enter your full name'); ok=false }
-      if(username.length < 3) { showError(document.getElementById('usernameError'),'Username min 3 chars'); ok=false }
-      if(!emailRe.test(email)) { showError(document.getElementById('emailError'),'Enter a valid email'); ok=false }
-      if(password.length < 8) { showError(document.getElementById('passwordError'),'Password must be 8+ chars'); ok=false }
-      if(confirm !== password) { showError(document.getElementById('confirmError'),'Passwords do not match'); ok=false }
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            clearErrors();
+            const fullname = form.fullname.value.trim();
+            const username = form.username.value.trim();
+            const email = form.email.value.trim().toLowerCase();
+            const password = form.password.value;
+            const confirm = form.confirm.value;
+            let ok = true;
 
-      if(!ok) return;
+            if (fullname.length < 2) { showError(document.getElementById('fullnameError'), 'Enter your full name'); ok = false; }
+            if (username.length < 3) { showError(document.getElementById('usernameError'), 'Username min 3 chars'); ok = false; }
+            if (!emailRe.test(email)) { showError(document.getElementById('emailError'), 'Enter a valid email'); ok = false; }
+            if (password.length < 8) { showError(document.getElementById('passwordError'), 'Password must be 8+ chars'); ok = false; }
+            if (confirm !== password) { showError(document.getElementById('confirmError'), 'Passwords do not match'); ok = false; }
 
-      overlay.classList.add('show');
+            if (!ok) return;
 
-      // Supabase signup
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: { fullname, username }
-        }
-      });
+            overlay.classList.add('show');
 
-      overlay.classList.remove('show');
+            const { data, error } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: { fullname, username }
+                }
+            });
 
-      if(error){
-        alert("Signup error: " + error.message);
-        return;
-      }
+            overlay.classList.remove('show');
 
-      const successEl = document.createElement('div');
-      successEl.className = 'success';
-      successEl.textContent = 'Account created! Please check your email to confirm.';
-      form.replaceWith(successEl);
-    });
+            if (error) {
+                alert("Signup error: " + error.message);
+                return;
+            }
 
-    document.getElementById('fillDemo').addEventListener('click', ()=>{
-      form.fullname.value = 'Jane Doe';
-      form.username.value = 'janedoe';
-      form.email.value = 'jane@example.com';
-      form.password.value = 'password123';
-      form.confirm.value = 'password123';
-    });
-  </script>
+            const successEl = document.createElement('div');
+            successEl.className = 'success';
+            successEl.textContent = 'Account created! Please check your email to confirm.';
+            form.replaceWith(successEl);
+        });
+
+        document.getElementById('fillDemo').addEventListener('click', () => {
+            form.fullname.value = 'Jane Doe';
+            form.username.value = 'janedoe';
+            form.email.value = 'jane@example.com';
+            form.password.value = 'password123';
+            form.confirm.value = 'password123';
+        });
+    </script>
 </body>
 </html>
