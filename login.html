@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Supabase</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    /* Background Gradient Animation */
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    background: linear-gradient(120deg, #1a1a1a, #343434, #e0e0e0);
+      background-size: 300% 300%;
+      animation: gradientShift 12s ease infinite;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+   .login-container {
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    border: 1px solid #e5e7eb;
+    position: relative;
+    overflow: hidden;
+    z-index: 0; /* ensure container creates a stacking context */
+  }
+
+  .login-container::before {
+    content: "";
+    position: absolute;
+    top: -40%;
+    left: -40%;
+    width: 180%;
+    height: 180%;
+  background: linear-gradient(120deg, #1a1a1a, #343434, #e0e0e0);
+    opacity: 0.15;
+    animation: pulseGlow 3s infinite alternate;
+    z-index: -1; /* push it behind everything */
+  }
+
+  
+    @keyframes pulseGlow {
+      0% { opacity: 0.15; }
+      100% { opacity: 0.25; }
+    }
+    .login-container h1 {
+      letter-spacing: 1px;
+      animation: fadeInDown 1s;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    input:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px #a5b4fc;
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
+    button {
+        
+      transition: background 0.3s, transform 0.2s;
+    }
+    button:active {
+      transform: scale(0.97);
+    }
+    button:hover {
+      background: linear-gradient(90deg, #6366f1 0%, #2563eb 100%);
+      box-shadow: 0 4px 16px 0 rgba(99,102,241,0.15);
+    }
+    .login-container form {
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 1.2s;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    #loginError {
+      animation: shake 0.4s;
+    }
+    @keyframes shake {
+      0% { transform: translateX(0);}
+      25% { transform: translateX(-5px);}
+      50% { transform: translateX(5px);}
+      75% { transform: translateX(-5px);}
+      100% { transform: translateX(0);}
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="login-container bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+    <h1 class="text-3xl font-extrabold mb-6 text-indigo-700 text-center drop-shadow">Login</h1>
+    
+    <!-- Login Form -->
+    <form id="loginForm" class="space-y-6">
+      <div>
+        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+        <input type="email" id="email" 
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none transition-all duration-300"
+          required>
+      </div>
+      <div>
+        <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+        <input type="password" id="password" 
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none transition-all duration-300"
+          required>
+      </div>
+      <div id="loginError" class="text-red-500 text-sm hidden"></div>
+     <button 
+  type="submit" 
+  class="text-white font-bold py-2 px-4 rounded w-full transition-all duration-300 shadow-md"
+  style="background: linear-gradient(135deg, #000000, #3b3e41);"
+>
+  Login
+</button>
+    </form>
+
+    <!-- Signup Redirect -->
+    <p class="text-center text-gray-600 text-sm mt-6">
+      Don’t have an account? 
+      <a href="signup.html" class="text-indigo-600 font-semibold hover:underline">Sign up here</a>
+    </p>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    const supabaseUrl = 'https://aiwthvlhyyjplajtrhob.supabase.co'
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpd3RodmxoeXlqcGxhanRyaG9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5NzUwNzQsImV4cCI6MjA3MjU1MTA3NH0.sjZoaEqik_YZJ_S4KDKaDAy5jlxquxzJGwvCrLPOcRQ'
+  const supabase = createClient(supabaseUrl, supabaseKey)
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        const errDiv = document.getElementById('loginError');
+        errDiv.textContent = error.message;
+        errDiv.classList.remove('hidden');
+        errDiv.style.animation = 'shake 0.4s';
+        setTimeout(() => { errDiv.style.animation = ''; }, 400);
+      } else {
+        document.getElementById('loginError').classList.add('hidden');
+        window.location.href = 'homepage.html';
+      }
+    });
+  </script>
+</body>
+</html> 

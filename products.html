@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Little Nest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        
+p.product-p {
+    width: 610px;
+    font-family: poppins;
+    text-align: justify;
+    font-size: 14px;
+}
+.video-container {
+    flex: 1;
+    position: relative;
+    margin-top: 50px;
+    margin-left: 307px;
+}
+.video-container {
+    position: relative;
+    width: 50%;
+    padding-bottom: 20%;
+    height: 0;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgb(255 255 255 / 10%);
+}
+
+.product-description {
+    flex: 1;
+    margin-top: -20px;
+    margin-left: -400px;
+    width: 100px;
+}
+
+/* Media query to stack the video and description on mobile */
+@media (max-width: 768px) {
+    .product-details-section {
+        flex-direction: column; /* Stacks the items vertically */
+        gap: 20px;
+    }
+    .video-container, .product-description {
+        width: 100%; /* Makes them take up the full width */
+    }
+    .video-container {
+        padding-bottom: 56.25%; /* Reverts to standard 16:9 aspect ratio for full width */
+    }
+}
+  main.content-area {
+    margin-top: -190px;
+}
+ .back-link {
+    position: absolute;
+    display: inline-block;
+    top: 53px;
+    font-size: 14px;
+    color: #ffffff;
+    margin-left: 290px;
+    background-color: black;
+    width: 88px;
+    padding: 5px;
+    border-radius: 7px;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Adds a shadow */
+}
+
+.back-link:hover {
+    background-color: rgb(255, 255, 255);
+    color: #000;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* A slightly larger shadow on hover */
+}
+    .sidebar {
+    width: 250px;
+    flex-shrink: 0;
+}
+
+.filter-box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+}
+
+.filter-box h4 {
+    margin-bottom: 15px;
+}
+
+.filter-btn {
+    display: block;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    color: #555;
+    transition: background-color 0.3s;
+}
+
+.filter-btn.active {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.content-area {
+    flex-grow: 1;
+}
+
+/* --- PRODUCT PAGE CONTENT --- */
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #777;
+}
+
+.product-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.product-header h2 {
+    font-size: 2.5em;
+    font-weight: 300;
+}
+
+.product-header h3 {
+    font-size: 1.5em;
+    font-weight: 300;
+    color: #888;
+}
+
+.featured-product {
+  
+    padding: 10px;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.featured-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.featured-image img {
+    max-width: 80%;
+}
+
+.other-products {
+    display: flex;
+    justify-content: center; /* Centers the group of items horizontally */
+    gap: 20px; /* Provides consistent spacing between the images */
+    margin-top: 30px; /* Adds space below the main product image */
+}
+
+.other-products img {
+    width: 200px;
+    height: 153px;
+    object-fit: cover;
+    border: 1px solid #9e8d8d00;
+}
+
+.other-products .view-btn {
+    display: block;
+    width: 118px;
+    margin-top: 10px;
+    text-align: center;
+    padding: 6px;
+    border: 1px solid #333;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+}
+.product-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.product-item {
+    flex: 1;
+    text-align: center;
+}
+
+.product-item img {
+    margin-bottom: 10px;
+}
+
+.view-btn {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 30px;
+    cursor: pointer;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+
+/* --- VIDEO AND DESCRIPTION --- */
+.product-details-section {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 40px;
+    align-items: center;
+}
+
+.video-container {
+    flex: 1;
+    position: relative;
+}
+
+.video-container img {
+    display: block;
+    width: 100%;
+}
+
+.play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+}
+
+.product-description {
+    flex: 1;
+}
+
+.product-description h3 {
+    margin-bottom: 15px;
+    font-size: 1.8em;
+    font-weight: 300;
+}
+
+/* --- FEATURE BANNER --- */
+.product-features-banner img {
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+        /* General Page Styles */
+        /* Style for the dropdown menu container */
+        .dropdown-allproducts {
+            position: absolute;
+            top: 100%;
+            /* Position below the main nav item */
+            left: 0;
+            background-color: #fff;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: none;
+            /* Hidden by default */
+            min-width: 800px;
+            /* Adjust as needed */
+            z-index: 100;
+        }
+
+        /* Make the dropdown visible on hover */
+        .header-nav>li:hover>.dropdown-allproducts {
+            display: block;
+        }
+
+        /* Grid layout for the product items */
+        .dropdown-products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            /* Creates 4 columns */
+            gap: 1rem;
+            /* Space between grid items */
+        }
+
+        /* Style for each individual product item */
+        .product-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            /* Border around each item */
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .product-item:hover {
+            transform: translateY(-5px);
+            /* Slight lift on hover */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Style for the images inside the grid items */
+        .product-item img {
+            width: 100px;
+            /* Adjust size as needed */
+            height: auto;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Style for the product names */
+        .product-item .product-name {
+            font-weight: bold;
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        .dropdown-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .dropdown-image {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .products-container h1 {
+            text-align: center;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            margin-bottom: 2rem;
+            color: #2c3e50;
+        }
+
+        /* Categories Filter */
+        .categories-filter {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-btn {
+            background-color: #000000;
+            border: none;
+            border-radius: 20px;
+            padding: 0.5rem 1.25rem;
+            font-size: 1rem;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .category-btn:hover,
+        .category-btn[aria-pressed="true"] {
+            background-color: #b4b4b4;
+            color: rgb(0, 0, 0);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+        }
+
+        /* Responsive Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-grid p {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* Enhanced Product Card */
+        .product-card {
+            background: linear-gradient(145deg, #f0f4f8, #d9e2ec);
+            border-radius: 15px;
+            box-shadow: 8px 8px 15px #b8c6db, -8px -8px 15px #ffffff;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: flowIn 0.5s ease-out forwards;
+            animation-delay: calc(var(--i) * 100ms);
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes flowIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 12px 12px 20px #a1b1c9, -12px -12px 20px #ffffff;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            /* Show entire image without cropping */
+            background-color: #eee;
+            border-bottom: 1px solid #ccc;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .product-info {
+            padding: 1rem 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-info h3 {
+            margin: 0 0 0.5rem;
+            font-size: 1.3rem;
+            color: #1a2a44;
+            font-weight: 700;
+        }
+
+        .product-description {
+            font-size: 0.95rem;
+            color: #4a5a6a;
+            line-height: 1.4;
+            height: 4.5em;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        /* Quantity Selector */
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .quantity-selector label {
+            font-size: 0.9rem;
+            color: #2c3e50;
+        }
+
+        .quantity-selector input[type="number"] {
+            width: 60px;
+            padding: 0.25rem 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .quantity-selector input[type="number"]::-webkit-inner-spin-button,
+        .quantity-selector input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Add to Cart Button */
+        .add-to-cart-btn {
+            padding: 0.75rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            background-color: #000000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .add-to-cart-btn:hover:not(:disabled) {
+            background-color: #ffffff;
+            color: black;
+        }
+
+        .add-to-cart-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        /* Hover Overlay */
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.75);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+        }
+
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+
+        /* Cart Badge Styles */
+        .cart-badge {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 19px;
+            right: 500px;
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .cart-badge.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* --- Modal Styles --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            /* Initially hidden */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 2rem;
+            font-weight: 300;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .modal-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        #cartItemsContainer {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 15px;
+            margin-bottom: 1rem;
+        }
+
+        /* Cart Item Card */
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            gap: 1.5rem;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .cart-item-price {
+            color: #3498db;
+            margin: 0.25rem 0;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-btn {
+            background: #f1f1f1;
+            border: 1px solid #ddd;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .quantity-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .item-quantity {
+            width: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 0.25rem;
+        }
+
+        .remove-item-btn {
+            background: transparent;
+            border: none;
+            color: #e74c3c;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        /* Cart Summary */
+        .cart-summary {
+            padding-top: 1rem;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .total-row {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: #000000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.2s;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .checkout-btn:hover {
+            background-color: #a8a8a8;
+            color: #000;
+        }
+
+        .empty-cart-message {
+            text-align: center;
+            color: #666;
+            margin: 2rem 0;
+        }
+
+        /* Styles for the new Login Prompt Modal */
+        .modal-message {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        p.contacts-p {
+            width: 755px;
+        }
+
+        .social-item {
+            width: 36px;
+        }
+
+        .contact-item {
+            width: 36px;
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+            background-color: #f8f8f8;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: bold;
+        }
+
+        /* Main Contact Section */
+        .contact-page-main {
+            padding: 40px 10%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .contact-heading {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            width: 200px;
+            margin: 20px auto;
+        }
+
+        .contact-content-container {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .form-section,
+        .info-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .form-section h2 {
+            font-size: 1.5em;
+            font-weight: normal;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .submit-btn:hover {
+            background-color: #555;
+        }
+
+        .info-section p {
+            line-height: 1.5;
+        }
+
+        .contact-item,
+        .social-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .contact-item i,
+        .social-item i {
+            font-size: 2em;
+            color: #555;
+        }
+
+        .social-media-links hr {
+            margin: 20px 0;
+        }
+
+        /* Map Section */
+        .map-section {
+            margin-top: 40px;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+
+        .map-section iframe {
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo" aria-label="The Little Nest logo and tagline">
+            <a href="homepage.html"><img class="logo1" src="logo-white.png" alt=""></a>
+        </div>
+
+        <form role="search" class="search-container" aria-label="Search for products">
+            <input type="search" placeholder="Search for products" aria-label="Search for products" name="search"
+                id="searchInput" autocomplete="off" />
+            <button type="submit" aria-label="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                        d="M21.71 20.29l-4.388-4.388A7.95 7.95 0 0016 10a8 8 0 10-8 8 7.95 7.95 0 005.907-2.678l4.388 4.388a1 1 0 001.414-1.414zM4 10a6 6 0 116 6 6 6 0 01-6-6z" />
+                </svg>
+            </button>
+        </form>
+
+        <div class="header-buttons" role="region" aria-label="User options and cart">
+            <!-- Login / Signup -->
+            <a href="account.html" class="btn-outline" aria-label="Login or Sign up" id="authBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 8a7 7 0 0 1 14 0z" />
+                </svg>
+                Login or SIGN UP
+            </a>
+
+
+            <!-- Cart -->
+            <button class="btn-outline" aria-label="View cart">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                        d="M7 18a2 2 0 1 0 2 2 2 2 0 0 0-2-2zm10 0a2 2 0 1 0 2 2 2 2 0 0 0-2-2zM7 14h10l3-9H6.21l-.21-1H1v2h3l3.6 7.59-1.35 2.44A1 1 0 0 0 7 15h9v-2H7z" />
+                </svg>
+                CART
+                <span class="cart-badge" id="cart-count"></span>
+            </button>
+        </div>
+
+        <!-- Logout -->
+        <a href="login.html" class="btn-outline" aria-label="Logout" id="logoutBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3H10v2h10v14H10v2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
+            </svg>
+            Logout
+        </a>
+
+    </header>
+
+    <nav role="navigation" aria-label="Main navigation">
+        <ul class="header-nav">
+            <li tabindex="0" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-allproducts">
+                <a href="products.html">All Products</a>
+                <ul id="dropdown-allproducts" role="menu" aria-label="All Products submenu">
+                    <a href="order.html"><li><img src="pillows.png" alt="Pillows"> Pillows</li></a>
+                    <a href="order.html"><li><img src="sheets.png" alt="Sheets"> Sheets</li></a>
+                    <a href="order.html"><li><img src="towel.png" alt="Towels"> Towels</li></a>
+                   <a href="order.html"> <li><img src="quilts.png" alt="Quilts"> Quilts</li></a>
+                    <a href="order.html"><li><img src="matressess.png" alt="Mattresses"> Mattresses</li></a>
+                    <a href="order.html"><li><img src="robes.png" alt="Robes"> Robes</li></a>
+                    <a href="order.html"><li><img src="duvet.png" alt="Duvets"> Duvets</li></a>
+                </ul>
+            </li>
+            <li tabindex="0"><a href="dreamgreen.html">DreamGreen</a></li>
+            <li tabindex="0"><a href="faqs.html">FAQ's/Blog</a></li>
+            <li tabindex="0"><a href="about.html">About</a></li>
+            <li tabindex="0"><a href="contacts.html">Contact</a></li>
+            <div class="announcement" role="alert" aria-live="polite">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path
+                        d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm-1 5a1 1 0 0 0-2 0v6a1 1 0 0 0 2 0V7zm2 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
+                        fill-rule="evenodd" clip-rule="evenodd" />
+                </svg>
+                Orders will be dispatched next Monday.
+            </div>
+        </ul>
+    </nav>
+   <div class="main-container">
+        <aside class="sidebar">
+            <div class="filter-box">
+                <h4>Shop all products</h4>
+                <a href="#" class="filter-btn active">PILLOWS</a>
+                <a href="#" class="filter-btn">MATTRESSES</a>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <a href="#" class="back-link"><i class="fas fa-chevron-left"></i> BACK</a>
+            <div class="product-header">
+                <h2>DREAM GREEN</h2>
+                <h3>PILLOWS</h3>
+            </div>
+
+            <div class="featured-product">
+                <div class="featured-image">
+                    <img src="pillows.png" alt="Dream Green Pillows">
+                </div>
+            </div>
+
+            <div class="other-products">
+                <div class="product-row">
+                    <div class="product-item">
+                      <p>OTHER PILLOWS®</p>
+                        <img src="bed1 (1).png" alt="Other Pillow 1">
+                  
+                        <button class="view-btn">VIEW</button>
+                    </div>
+                    <div class="product-item">
+                      <p>OTHER PILLOWS®</p>
+                        <img src="bed1 (2).png" alt="Other Pillow 2">
+                        <button class="view-btn">VIEW</button>
+                    </div>
+                    <div class="product-item">
+                            <p>OTHER PILLOWS®</p>
+                        <img src="bed1 (3).png" alt="Other Pillow 3">
+            
+                        <button class="view-btn">VIEW</button>
+                    </div>
+                    <div class="product-item">
+                                  <p>OTHER PILLOWS®</p>
+                        <img src="bed1 (4).png" alt="Other Pillow 4">
+                  
+                        <button class="view-btn">VIEW</button>
+                    </div>
+                </div>
+            </div>
+<div class="product-details-section">
+    <div class="video-container">
+        <iframe width="560" height="315" src="DESIGNER RESIDENCE _ CINEMATIC REAL ESTATE VIDEO IN 4K _ SONY FX6.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="product-description">
+        <h3>PILLOW - THE LITTLE NEST</h3>
+        <p class="product-p">DRIFT INTO RESTFUL NIGHTS WITH OUR PREMIUM PILLOW-WHERE PLUSH. REJUVENATING COMFORT MEETS THOUGHTFUL SUSTAINABILITY.
+CRAFTED WITH OUR SIGNATURE DREAMGREEN MICROFIBER FILL-MADE FROM RECYCLED PLASTIC BOTTLES-YOU'LL ENJOY A SOFT, SUPPORTIVE FEEL THAT DOESN'T COMPROMISE ON ECO-CONSCIOUS VALUES. HYPOALLERGENIC AND BUILT TO RETAIN ITS LOFTY STRUCTURE NIGHT AFTER NIGHT, THIS PILLOW IS DESIGNED FOR LASTING COMFORT AND CLEANLINESS.
+EVERY PILLOW HELPS REDUCE PLASTIC WASTE, TURNING EVERYDAY REST INTO AN ACT OF ENVIRONMENTAL CARE. LIGHTWEIGHT, BREATHABLE, AND KIND TO BOTH YOUR SLEEP AND THE PLANET, IT'S THE ESSENTIAL FINISHING TOUCH FOR YOUR SANCTUARY OF RELAXATION.
+CARE TIP: FOLLOW GENTLE WASHING INSTRUCTIONS TO PRESERVE ITS PLUSH LOFT AND LONG-TERM DURABILITY.</p>
+    </div>
+</div>
+
+            <div class="product-features-banner">
+                <img src="slide2.png" alt="DreamGreen 900 Pillow features">
+            </div>
+        </main>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="cartModalTitle"
+        tabindex="-1">
+        <div class="modal-content">
+            <button class="close-btn" aria-label="Close cart modal">&times;</button>
+            <h2 class="modal-title" id="cartModalTitle">Your Cart</h2>
+            <div id="cartItemsContainer">
+                <p class="empty-cart-message">Your cart is empty.</p>
+            </div>
+            <div id="cartSummary" class="cart-summary" style="display: none;">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotalPrice">$0.00</span>
+                </div>
+                <div class="summary-row shipping-row">
+                    <span>Shipping Fee:</span>
+                    <span id="shippingFee">$5.00</span>
+                </div>
+                <hr />
+                <div class="summary-row total-row">
+                    <span>Total:</span>
+                    <span id="totalPrice">$0.00</span>
+                </div>
+                <a href="checkout.html" class="checkout-btn" style="text-decoration: none;">Proceed to Checkout</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Prompt Modal -->
+    <div id="loginPromptModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="loginPromptTitle"
+        tabindex="-1">
+        <div class="modal-content">
+            <button class="close-btn" aria-label="Close login prompt modal">&times;</button>
+            <h2 class="modal-title" id="loginPromptTitle">Login Required</h2>
+            <p class="modal-message">Please log in to add items to your cart and proceed with your order.</p>
+            <button id="loginRedirectBtn" class="checkout-btn">Go to Login Page</button>
+        </div>
+    </div>
+
+    <footer aria-label="Footer">
+        <div class="footer-nav" aria-label="General Site Links">
+            <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">DreamGreen</a></li>
+                <li><a href="#">FAQ’s/Blog</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Products</a></li>
+            </ul>
+        </div>
+        <div class="footer-nav" aria-label="Account Links">
+            <ul>
+                <li><a href="#">My Account</a></li>
+                <li><a href="#">My Orders</a></li>
+                <li><a href="#">My Favourites</a></li>
+                <li><a href="#">My Returns</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="#">Returns & Shipping</a></li>
+            </ul>
+        </div>
+        <div class="logo-footer" aria-label="The Little Nest logo and tagline">
+            <img class="logo2" src="logo-black.png" alt="The Little Nest Logo Black">
+        </div>
+        <div class="footer-contact">
+            <strong>Contact Us</strong>
+            <p>Talk: 0000 000 000</p>
+            <p>Type: <a href="mailto:sales@thelittlenest.co.nz">sales@thelittlenest.co.nz</a></p>
+            <p>View: <a href="https://www.thelittlenest.co.nz" target="_blank"
+                    rel="noopener noreferrer">www.thelittlenest.co.nz</a></p>
+            <p>Visit: Marlborough, New Zealand</p>
+            <div class="socials" aria-label="Social media links">
+                <a href="#"><svg role="img" aria-labelledby="linkedinTitle" viewBox="0 0 24 24">
+                        <title id="linkedinTitle">LinkedIn</title>
+                        <path
+                            d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.52 7.5H4.5v14H.52v-14zm7.23-.02h3.76v1.92h.05c.52-1 1.8-2.04 3.7-2.04 3.95 0 4.68 2.6 4.68 5.98v6.18h-3.95v-5.48c0-1.32 0-3.02-1.84-3.02s-2.12 1.45-2.12 2.95v5.55H7.75v-14z" />
+                    </svg></a>
+                <a href="#"><svg role="img" aria-labelledby="tikTokTitle" viewBox="0 0 448 512">
+                        <title id="tikTokTitle">TikTok</title>
+                        <path
+                            d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z" />
+                    </svg></a>
+                <a href="#"><svg role="img" aria-labelledby="facebookTitle" viewBox="0 0 24 24">
+                        <title id="facebookTitle">Facebook</title>
+                        <path
+                            d="M22.675 0h-21.35C.6 0 0 .6 0 1.341v21.317C0 23.4.6 24 1.325 24H12v-9.294H9.375v-3.622H12V8.413c0-2.58 1.574-3.993 3.873-3.993 1.102 0 2.049.082 2.326.118v2.7l-1.744.001c-1.367 0-1.63.651-1.63 1.605v2.105h3.258l-.425 3.623H15.825V24h6.85c.725 0 1.325-.6 1.325-1.342V1.341C24 .6 23.4 0 22.675 0z" />
+                    </svg></a>
+                <a href="#"><svg role="img" aria-labelledby="youtubeTitle" viewBox="0 0 24 24">
+                        <title id="youtubeTitle">YouTube</title>
+                        <path
+                            d="M23.498 6.186a2.954 2.954 0 0 0-2.08-2.09C19.6 3.571 12 3.571 12 3.571s-7.6 0-9.418.524a2.955 2.955 0 0 0-2.08 2.09C.021 7.986 0 12 0 12s.022 4.014.502 5.814a2.955 2.955 0 0 0 2.08 2.09C4.4 20.429 12 20.429 12 20.429s7.598 0 9.418-.525a2.955 2.955 0 0 0 2.08-2.09c.48-1.8.502-5.814.502-5.814s-.022-4.014-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    </svg></a>
+                <a href="#"><svg role="img" aria-labelledby="instagramTitle" viewBox="0 0 24 24">
+                        <title id="instagramTitle">Instagram</title>
+                        <path
+                            d="M7.75 2h8.5A5.753 5.753 0 0 1 22 7.75v8.5A5.753 5.753 0 0 1 16.25 22h-8.5A5.753 5.753 0 0 1 2 16.25v-8.5A5.753 5.753 0 0 1 7.75 2zm8.5 1.5h-8.5a4.251 4.251 0 0 0-4.25 4.25v8.5a4.251 4.251 0 0 0 4.25 4.25h8.5a4.251 4.251 0 0 0 4.25-4.25v-8.5a4.251 4.251 0 0 0-4.25-4.25zm-4.25 2.87a4.38 4.38 0 1 1 0 8.76 4.38 4.38 0 0 1 0-8.76zm0 1.5a2.88 2.88 0 1 0 0 5.76 2.88 2.88 0 0 0 0-5.763zm4.634-.88a1.04 1.04 0 1 1 0 2.08 1.04 1.04 0 0 1 0-2.08z" />
+                    </svg></a>
+            </div>
+        </div>
+    </footer>
+    <div class="leave-message" tabindex="0" id="chatBtn">Leave us a message</div>
+    <script src="homepage.js"></script>
+   <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+        const supabaseUrl = 'https://aiwthvlhyyjplajtrhob.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpd3RodmxoeXlqcGxhanRyaG9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5NzUwNzQsImV4cCI6MjA3MjU1MTA3NH0.sjZoaEqik_YZJ_S4KDKaDAy5jlxquxzJGwvCrLPOcRQ';
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        const authBtn = document.getElementById('authBtn');
+        const cartCountBadge = document.getElementById('cart-count');
+        const cartModal = document.getElementById('cartModal');
+        const cartItemsContainer = document.getElementById('cartItemsContainer');
+        const subtotalPrice = document.getElementById('subtotalPrice');
+        const shippingFee = document.getElementById('shippingFee');
+        const totalPrice = document.getElementById('totalPrice');
+        const cartSummary = document.getElementById('cartSummary');
+        let currentUser = null;
+        let allProducts = []; // This will be used if you add product display later
+
+        // New elements for login prompt modal
+        const loginPromptModal = document.getElementById('loginPromptModal');
+        const loginRedirectBtn = document.getElementById('loginRedirectBtn');
+
+        async function updateCartCount() {
+            if (!currentUser) {
+                if (cartCountBadge) {
+                    cartCountBadge.classList.remove('visible');
+                    cartCountBadge.textContent = '';
+                }
+                return;
+            }
+            try {
+                const { count, error } = await supabase
+                    .from('cart')
+                    .select('product_id', { count: 'exact', head: true })
+                    .eq('user_id', currentUser.id);
+
+                if (error) throw error;
+                if (count > 0) {
+                    if (cartCountBadge) {
+                        cartCountBadge.textContent = count;
+                        cartCountBadge.classList.add('visible');
+                    }
+                } else {
+                    if (cartCountBadge) {
+                        cartCountBadge.textContent = '';
+                        cartCountBadge.classList.remove('visible');
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching cart count:', error.message);
+            }
+        }
+
+        async function checkAuthAndLoadProducts() {
+            try {
+                const {
+                    data: { session },
+                    error,
+                } = await supabase.auth.getSession();
+                if (error) throw error;
+                if (session) {
+                    currentUser = session.user;
+                    const userFirstName = currentUser.email.split('@')[0];
+                    authBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 8a7 7 0 0 1 14 0z"/></svg> ${userFirstName}`;
+                    authBtn.setAttribute('aria-label', `Logged in as ${currentUser.email}. Click to log out.`);
+                    authBtn.removeEventListener('click', redirectToAccount); // Remove old listener
+                    authBtn.addEventListener('click', logout); // Add new logout listener
+                    await updateCartCount();
+                    // If you have products to load on this page, call fetchAndDisplayProducts() here
+                    // await fetchAndDisplayProducts(); 
+                } else {
+                    // No session, ensure authBtn links to account.html and show login prompt if needed
+                    authBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 8a7 7 0 0 1 14 0z"/>
+            </svg>
+            Login or Sign up
+          `;
+                    authBtn.setAttribute('aria-label', `Login or Sign up`);
+                    authBtn.removeEventListener('click', logout); // Remove logout listener
+                    authBtn.addEventListener('click', redirectToAccount); // Add listener to redirect to account.html
+                }
+            } catch (authError) {
+                console.error('Authentication error:', authError);
+                // Handle error, maybe show a message to the user
+            }
+        }
+
+        function redirectToAccount() {
+            window.location.href = "account.html";
+        }
+
+        function showLoginRequiredModal() {
+            let modal = document.getElementById('login-required-modal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'login-required-modal';
+
+                modal.innerHTML = `
+          <div class="modal-content">
+            <p>You need to log in first to access this content.</p>
+            <button id="go-to-login-btn">Login</button>
+          </div>
+        `;
+                document.body.appendChild(modal);
+
+                document.getElementById('go-to-login-btn').addEventListener('click', () => {
+                    window.location.href = 'login.html';
+                });
+            }
+            modal.style.display = 'flex';
+        }
+
+        // Function to open the login prompt modal (for cart actions)
+        function openLoginPromptModal() {
+            loginPromptModal.style.display = 'flex';
+            loginPromptModal.focus();
+        }
+
+        // Function to close the login prompt modal
+        function closeLoginPromptModal() {
+            loginPromptModal.style.display = 'none';
+        }
+
+        // Event listener for the "Go to Login Page" button in the prompt modal
+        loginRedirectBtn.addEventListener('click', () => {
+            closeLoginPromptModal();
+            window.location.href = 'login.html';
+        });
+
+        // Event listener to close the login prompt modal when clicking outside
+        loginPromptModal.addEventListener('click', (event) => {
+            if (event.target === loginPromptModal) {
+                closeLoginPromptModal();
+            }
+        });
+
+        // Event listener for the close button in the login prompt modal
+        loginPromptModal.querySelector('.close-btn').addEventListener('click', closeLoginPromptModal);
+
+        async function handleAddToCart(event) {
+            // This function is a placeholder as there are no product cards on this homepage.
+            // It demonstrates how you would check for login before adding to cart.
+            if (!currentUser) {
+                openLoginPromptModal();
+                return;
+            }
+            alert('Add to cart functionality would go here for a product. User is logged in!');
+            // Example: You would typically get product ID and quantity from the clicked product card
+            // const productId = event.target.dataset.productId;
+            // const quantity = 1; // Or from an input field
+            // try {
+            //   const { error } = await supabase.from('cart').insert([{ user_id: currentUser.id, product_id: productId, quantity: quantity }]);
+            //   if (error) throw error;
+            //   await updateCartCount();
+            //   alert('Item added to cart!');
+            // } catch (error) {
+            //   console.error('Error adding to cart:', error.message);
+            //   alert('Could not add item to cart. Please try again.');
+            // }
+        }
+
+        async function logout() {
+            await supabase.auth.signOut();
+            window.location.href = "login.html";
+        }
+
+        // Modal functions and cart management
+        async function openCartModal() {
+            if (!currentUser) {
+                openLoginPromptModal();
+                return;
+            }
+            await fetchCartItems();
+            cartModal.style.display = 'flex';
+            cartModal.focus();
+        }
+
+        function closeCartModal() {
+            cartModal.style.display = 'none';
+        }
+
+        async function fetchCartItems() {
+            try {
+                const { data: cartItems, error } = await supabase
+                    .from('cart')
+                    .select(`
+            id,
+            quantity,
+            products (
+              id,
+              name,
+              price,
+              image_url,
+              quantity as stock_quantity
+            )
+          `)
+                    .eq('user_id', currentUser.id)
+                    .order('id');
+                if (error) throw error;
+                cartItemsContainer.innerHTML = '';
+                let subtotal = 0;
+                if (cartItems.length === 0) {
+                    cartItemsContainer.innerHTML = '<p class="empty-cart-message">Your cart is empty.</p>';
+                    cartSummary.style.display = 'none';
+                    return;
+                }
+
+                cartItems.forEach((item) => {
+                    const product = item.products;
+                    const itemPrice = product.price * item.quantity;
+                    subtotal += itemPrice;
+
+                    const cartItemDiv = document.createElement('div');
+                    cartItemDiv.className = 'cart-item';
+                    cartItemDiv.dataset.itemId = item.id;
+                    cartItemDiv.innerHTML = `
+            <img src="${product.image_url}" alt="${product.name}" class="cart-item-img" />
+            <div class="cart-item-details">
+              <p class="cart-item-name">${product.name}</p>
+              <p class="cart-item-price">$${Number(product.price).toFixed(2)}</p>
+            </div>
+            <div class="quantity-controls">
+              <button class="quantity-btn decrease-btn" data-id="${item.id}" aria-label="Decrease quantity">-</button>
+              <span class="item-quantity" aria-live="polite">${item.quantity}</span>
+              <button class="quantity-btn increase-btn" data-id="${item.id}" aria-label="Increase quantity">+</button>
+            </div>
+            <button class="remove-item-btn" data-id="${item.id}" aria-label="Remove item">&times;</button>
+          `;
+                    cartItemsContainer.appendChild(cartItemDiv);
+                });
+
+                const shipping = 5.0;
+                const total = subtotal + shipping;
+                subtotalPrice.textContent = `$${subtotal.toFixed(2)}`;
+                shippingFee.textContent = `$${shipping.toFixed(2)}`;
+                totalPrice.textContent = `$${total.toFixed(2)}`;
+                cartSummary.style.display = 'block';
+            } catch (error) {
+                console.error('Error fetching cart items:', error.message);
+                cartItemsContainer.innerHTML = '<p class="empty-cart-message">Could not load cart. Please try again.</p>';
+                cartSummary.style.display = 'none';
+            }
+        }
+
+        async function handleCartAction(event) {
+            const target = event.target;
+            const itemId = target.dataset.id;
+            if (!itemId) return;
+
+            if (target.matches('.remove-item-btn')) {
+                await removeItem(itemId);
+            } else if (target.matches('.increase-btn')) {
+                await changeQuantity(itemId, 1);
+            } else if (target.matches('.decrease-btn')) {
+                await changeQuantity(itemId, -1);
+            }
+        }
+
+        async function removeItem(itemId) {
+            try {
+                // First, get the cart item to know the product_id and quantity
+                const { data: cartItem, error: fetchError } = await supabase
+                    .from('cart')
+                    .select('product_id, quantity')
+                    .eq('id', itemId)
+                    .single();
+
+                if (fetchError) throw fetchError;
+
+                // Then, delete the item from the cart
+                const { error: deleteError } = await supabase.from('cart').delete().eq('id', itemId);
+                if (deleteError) throw deleteError;
+
+                // Finally, update the product stock
+                const { data: product, error: productFetchError } = await supabase
+                    .from('products')
+                    .select('quantity')
+                    .eq('id', cartItem.product_id)
+                    .single();
+
+                if (productFetchError) throw productFetchError;
+
+                const newStock = product.quantity + cartItem.quantity;
+                const { error: updateStockError } = await supabase
+                    .from('products')
+                    .update({ quantity: newStock })
+                    .eq('id', cartItem.product_id);
+
+                if (updateStockError) {
+                    console.error('Error updating product stock after removal:', updateStockError);
+                    alert('Item removed from cart, but failed to update product stock. Please contact support.');
+                }
+
+                await fetchCartItems();
+                await updateCartCount();
+            } catch (error) {
+                console.error('Error removing item:', error.message);
+                alert('Failed to remove item. Please try again.');
+            }
+        }
+
+        async function changeQuantity(itemId, change) {
+            try {
+                const { data: cartItem, error: fetchError } = await supabase
+                    .from('cart')
+                    .select('quantity, product_id, products(quantity)') // Select 'quantity' from products table as 'stock_quantity'
+                    .eq('id', itemId)
+                    .single();
+                if (fetchError) throw fetchError;
+
+                const currentCartQuantity = cartItem.quantity;
+                const productStock = cartItem.products.quantity; // Use 'quantity' from products table
+                const newQuantity = currentCartQuantity + change;
+
+                if (newQuantity <= 0) {
+                    await removeItem(itemId);
+                    return;
+                }
+
+                // Check against the total available stock (current stock + items already in cart)
+                if (newQuantity > productStock + currentCartQuantity) {
+                    alert(`Sorry, only ${productStock + currentCartQuantity} item(s) available in total.`);
+                    return;
+                }
+
+                // Calculate the actual change in stock needed
+                const stockChange = -change; // If quantity increases by 1, stock decreases by 1
+
+                // Update cart item quantity
+                const { error: updateCartError } = await supabase
+                    .from('cart')
+                    .update({ quantity: newQuantity })
+                    .eq('id', itemId);
+                if (updateCartError) throw updateCartError;
+
+                // Update product stock
+                const { error: updateProductError } = await supabase
+                    .from('products')
+                    .update({ quantity: productStock + stockChange })
+                    .eq('id', cartItem.product_id);
+                if (updateProductError) {
+                    console.error('Error updating product stock:', updateProductError);
+                    alert('Quantity updated in cart, but failed to update product stock. Please contact support.');
+                }
+
+                await fetchCartItems();
+                await updateCartCount();
+            } catch (error) {
+                console.error('Error changing quantity:', error.message);
+                alert('Failed to change quantity. Please try again.');
+            }
+        }
+
+        // Event Listeners for the cart modal
+        document.querySelector('#cartModal .close-btn').addEventListener('click', closeCartModal);
+        document.querySelector('.btn-outline[aria-label="View cart"]').addEventListener('click', openCartModal);
+        cartModal.addEventListener('click', (event) => {
+            if (event.target === cartModal) {
+                closeCartModal();
+            }
+        });
+        cartItemsContainer.addEventListener('click', handleCartAction);
+
+        // Checkout button closes modal
+        document.querySelector('a.checkout-btn').addEventListener('click', () => {
+            closeCartModal();
+        });
+
+        // Initial function call
+        document.addEventListener('DOMContentLoaded', checkAuthAndLoadProducts);
+        // If you have product cards on this page, uncomment and adjust this:
+        // document.body.addEventListener('click', handleAddToCart); 
+    </script>
+</body>
+
+</html>

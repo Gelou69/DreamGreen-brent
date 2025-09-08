@@ -1,0 +1,390 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Checkout - The Little Nest</title>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            .checkout-container {
+                max-width: 800px;
+                margin: 2rem auto;
+                padding: 2rem;
+                background: #fff;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            }
+            .checkout-container h2, .checkout-container h3 {
+                color: #2c3e50;
+            }
+            #checkoutItems {
+                border: 1px solid #ddd;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                border-radius: 8px;
+            }
+            .checkout-item {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 0.5rem 0;
+            }
+            .checkout-item img {
+                width: 60px;
+                height: 60px;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+            .checkout-summary {
+                padding-top: 1rem;
+                border-top: 2px solid #f0f0f0;
+            }
+            .checkout-summary p {
+                display: flex;
+                justify-content: space-between;
+            }
+            #placeOrderBtn {
+                width: 100%;
+                padding: 1rem;
+                background-color: #2ecc71;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 1.1rem;
+                cursor: pointer;
+                margin-top: 1rem;
+            }
+            #placeOrderBtn:disabled {
+                background-color: #95a5a6;
+                cursor: not-allowed;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+    <div class="logo" aria-label="The Little Nest logo and tagline">
+      <a href="homepage.html"><img class="logo1" src="logo-white.png" alt="The Little Nest Logo"></a>
+    </div>
+    <form role="search" class="search-container" aria-label="Search for products">
+      <input type="search" placeholder="Search for products" aria-label="Search for products" name="search" id="searchInput" autocomplete="off" />
+      <button type="submit" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21.71 20.29l-4.388-4.388A7.95 7.95 0 0016 10a8 8 0 10-8 8 7.95 7.95 0 005.907-2.678l4.388 4.388a1 1 0 001.414-1.414zM4 10a6 6 0 116 6 6 6 0 01-6-6z" />
+        </svg>
+      </button>
+    </form>
+    <div class="header-buttons" role="region" aria-label="User options and cart">
+      <button class="btn-outline" aria-label="Login or Sign up" id="authBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 8a7 7 0 0 1 14 0z" />
+        </svg>
+        <span>Login or Sign up</span>
+      </button>
+       <a href="logout.html" class="btn-outline" aria-label="Logout" id="logoutBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3H10v2h10v14H10v2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
+            </svg>
+            Logout
+        </a>
+    </div>
+  </header>
+  <nav role="navigation" aria-label="Main navigation">
+    <ul class="header-nav">
+      <li tabindex="0" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-allproducts">
+        All Products 
+        <ul id="dropdown-allproducts" role="menu" aria-label="All Products submenu">
+          <li><img src="green.png" alt="DreamGreen"> DreamGreen</li>
+          <li><img src="pillows.png" alt="Pillows"> Pillows</li>
+          <li><img src="sheets.png" alt="Sheets"> Sheets</li>
+          <li><img src="towel.png" alt="Towels"> Towels</li>
+          <li><img src="quilts.png" alt="Quilts"> Quilts</li>
+          <li><img src="matressess.png" alt="Mattresses"> Mattresses</li>
+          <li><img src="robes.png" alt="Robes"> Robes</li>
+          <li><img src="duvet.png" alt="Duvets"> Duvets</li>
+        </ul>
+      </li>
+      <li  tabindex="0"><a href="products-functtional.html">DreamGreen</a></li>
+      <li tabindex="0"><a href="DreamGreen-functional.html">FAQ's/Blog</a></li>
+      <li tabindex="0"><a href="about.html">About</a></li>
+      <li tabindex="0"><a href="contacts-functional.html">Contact</a></li>
+      <li tabindex="0"><a href="order.html">Product</a></li>
+      <li tabindex="0"><a href="checkout.html">Cart</a></li>
+      <li tabindex="0"><a href="order-tracking.html">Order</a></li>
+      <div class="announcement" role="alert" aria-live="polite">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm-1 5a1 1 0 0 0-2 0v6a1 1 0 0 0 2 0V7zm2 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill-rule="evenodd" clip-rule="evenodd"/>
+        </svg>
+        Orders will be dispatched next Monday.
+      </div>
+    </ul>
+  </nav>
+        <main>
+            <div class="checkout-container">
+                <h2>Checkout Summary</h2>
+                <div id="addressSection">
+                    <h3>Shipping Address <a href="account.html">(Edit)</a></h3>
+                    <p id="selectedAddress">Loading address...</p>
+                </div>
+                <div id="itemsSection">
+                    <h3>Order Items</h3>
+                    <div id="checkoutItems"></div>
+                </div>
+                <div id="summarySection" class="checkout-summary">
+                    <h3>Payment Summary</h3>
+                    <p>Subtotal: <span id="checkoutSubtotal"></span></p>
+                    <p>Shipping: <span id="checkoutShipping"></span></p>
+                    <hr>
+                    <p>Total: <span id="checkoutTotal"></span></p>
+                </div>
+                <button id="placeOrderBtn">Place Order</button>
+            </div>
+        </main>
+<footer aria-label="Footer">
+    <div class="footer-nav" aria-label="General Site Links">
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">DreamGreen</a></li>
+        <li><a href="#">FAQ’s/Blog</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Products</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav" aria-label="Account Links">
+      <ul>
+        <li><a href="#">My Account</a></li>
+        <li><a href="#">My Orders</a></li>
+        <li><a href="#">My Favourites</a></li>
+        <li><a href="#">My Returns</a></li>
+        <li><a href="#">Login</a></li>
+        <li><a href="#">Terms & Conditions</a></li>
+        <li><a href="#">Returns & Shipping</a></li>
+      </ul>
+    </div>
+    <div class="logo-footer" aria-label="The Little Nest logo and tagline">
+      <img class="logo2" src="logo-black.png" alt="The Little Nest Logo Black">
+    </div>
+    <div class="footer-contact">
+      <strong>Contact Us</strong>
+      <p>Talk: 0000 000 000</p>
+      <p>Type: <a href="mailto:sales@thelittlenest.co.nz">sales@thelittlenest.co.nz</a></p>
+      <p>View: <a href="https://www.thelittlenest.co.nz" target="_blank" rel="noopener noreferrer">www.thelittlenest.co.nz</a></p>
+      <p>Visit: Marlborough, New Zealand</p>
+      <div class="socials" aria-label="Social media links">
+        <a href="#"><svg role="img" aria-labelledby="linkedinTitle" viewBox="0 0 24 24"><title id="linkedinTitle">LinkedIn</title><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.52 7.5H4.5v14H.52v-14zm7.23-.02h3.76v1.92h.05c.52-1 1.8-2.04 3.7-2.04 3.95 0 4.68 2.6 4.68 5.98v6.18h-3.95v-5.48c0-1.32 0-3.02-1.84-3.02s-2.12 1.45-2.12 2.95v5.55H7.75v-14z" /></svg></a>
+        <a href="#"><svg role="img" aria-labelledby="tikTokTitle" viewBox="0 0 448 512"><title id="tikTokTitle">TikTok</title><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg></a>
+        <a href="#"><svg role="img" aria-labelledby="facebookTitle" viewBox="0 0 24 24"><title id="facebookTitle">Facebook</title><path d="M22.675 0h-21.35C.6 0 0 .6 0 1.341v21.317C0 23.4.6 24 1.325 24H12v-9.294H9.375v-3.622H12V8.413c0-2.58 1.574-3.993 3.873-3.993 1.102 0 2.049.082 2.326.118v2.7l-1.744.001c-1.367 0-1.63.651-1.63 1.605v2.105h3.258l-.425 3.623H15.825V24h6.85c.725 0 1.325-.6 1.325-1.342V1.341C24 .6 23.4 0 22.675 0z" /></svg></a>
+        <a href="#"><svg role="img" aria-labelledby="youtubeTitle" viewBox="0 0 24 24"><title id="youtubeTitle">YouTube</title><path d="M23.498 6.186a2.954 2.954 0 0 0-2.08-2.09C19.6 3.571 12 3.571 12 3.571s-7.6 0-9.418.524a2.955 2.955 0 0 0-2.08 2.09C.021 7.986 0 12 0 12s.022 4.014.502 5.814a2.955 2.955 0 0 0 2.08 2.09C4.4 20.429 12 20.429 12 20.429s7.598 0 9.418-.525a2.955 2.955 0 0 0 2.08-2.09c.48-1.8.502-5.814.502-5.814s-.022-4.014-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" /></svg></a>
+        <a href="#"><svg role="img" aria-labelledby="instagramTitle" viewBox="0 0 24 24"><title id="instagramTitle">Instagram</title><path d="M7.75 2h8.5A5.753 5.753 0 0 1 22 7.75v8.5A5.753 5.753 0 0 1 16.25 22h-8.5A5.753 5.753 0 0 1 2 16.25v-8.5A5.753 5.753 0 0 1 7.75 2zm8.5 1.5h-8.5a4.251 4.251 0 0 0-4.25 4.25v8.5a4.251 4.251 0 0 0 4.25 4.25h8.5a4.251 4.251 0 0 0 4.25-4.25v-8.5a4.251 4.251 0 0 0-4.25-4.25zm-4.25 2.87a4.38 4.38 0 1 1 0 8.76 4.38 4.38 0 0 1 0-8.76zm0 1.5a2.88 2.88 0 1 0 0 5.76 2.88 2.88 0 0 0 0-5.763zm4.634-.88a1.04 1.04 0 1 1 0 2.08 1.04 1.04 0 0 1 0-2.08z" /></svg></a>
+      </div>
+    </div>
+  </footer>
+  <div class="leave-message" tabindex="0" id="chatBtn">Leave us a message</div>
+  <script src="homepage.js"></script>
+
+        <script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+const supabaseUrl = 'https://aiwthvlhyyjplajtrhob.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpd3RodmxoeXlqcGxhanRyaG9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5NzUwNzQsImV4cCI6MjA3MjU1MTA3NH0.sjZoaEqik_YZJ_S4KDKaDAy5jlxquxzJGwvCrLPOcRQ';
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+const selectedAddressEl = document.getElementById('selectedAddress');
+const checkoutItemsContainer = document.getElementById('checkoutItems');
+const checkoutSubtotalEl = document.getElementById('checkoutSubtotal');
+const checkoutShippingEl = document.getElementById('checkoutShipping');
+const checkoutTotalEl = document.getElementById('checkoutTotal');
+const placeOrderBtn = document.getElementById('placeOrderBtn');
+const authBtn = document.getElementById('authBtn');
+
+let currentUser ;
+let currentCartItems;
+
+async function updateAuthButton() {
+    const { data: { session }, error } = await supabase.auth.getSession();
+    if (error) {
+        console.error('Error getting session:', error.message);
+        return;
+    }
+    if (session && session.user) {
+        // User is logged in
+        const user = session.user;
+        // Use user_metadata.full_name if available, else email
+        const displayName = user.user_metadata?.full_name || user.email || 'User ';
+        authBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 8a7 7 0 0 1 14 0z" />
+            </svg>
+            <span>${displayName}</span>
+        `;
+        authBtn.onclick = async () => {
+            await supabase.auth.signOut();
+            window.location.reload();
+        };
+        authBtn.setAttribute('aria-label', `Logged in as ${displayName}. Click to log out.`);
+    } else {
+        // User not logged in
+        authBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 8a7 7 0 0 1 14 0z" />
+            </svg>
+            <span>Login or Sign up</span>
+        `;
+        authBtn.onclick = () => {
+            window.location.href = 'login.html';
+        };
+        authBtn.setAttribute('aria-label', 'Login or Sign up');
+    }
+}
+
+async function loadCheckoutData() {
+    const { data: { session }, error } = await supabase.auth.getSession();
+    if (error || !session) {
+        window.location.href = 'login.html';
+        return;
+    }
+    currentUser  = session.user;
+    await displayAddress();
+    await displayCartItems();
+}
+
+async function displayAddress() {
+    const { data: address, error } = await supabase
+        .from('addresses')
+        .select('*')
+        .eq('user_id', currentUser .id)
+        .eq('is_default', true)
+        .single();
+    if (error || !address) {
+        selectedAddressEl.innerHTML = `No default address found. Please <a href="account.html">add one</a>.`;
+        placeOrderBtn.disabled = true;
+    } else {
+        selectedAddressEl.innerHTML = `
+            <strong>${address.full_name}</strong> (${address.mobile_number})<br>
+            ${address.street}, ${address.city}, ${address.province}
+        `;
+        placeOrderBtn.disabled = false;
+    }
+}
+
+async function displayCartItems() {
+    const { data: cartItems, error } = await supabase
+        .from('cart')
+        .select(`
+            product_id,
+            quantity,
+            products (
+                name,
+                price,
+                image_url,
+                quantity 
+            )
+        `)
+        .eq('user_id', currentUser .id);
+    if (error) {
+        console.error('Error fetching cart for checkout:', error.message);
+        return;
+    }
+    
+    currentCartItems = cartItems; 
+
+    if (currentCartItems.length === 0) {
+        checkoutItemsContainer.innerHTML = '<p>Your cart is empty. <a href="index.html">Start shopping!</a></p>';
+        placeOrderBtn.disabled = true;
+        return;
+    }
+
+    let subtotal = 0;
+    checkoutItemsContainer.innerHTML = '';
+    currentCartItems.forEach(item => {
+        const product = item.products;
+        const itemPrice = product.price * item.quantity;
+        subtotal += itemPrice;
+        checkoutItemsContainer.innerHTML += `
+            <div class="checkout-item">
+                <img src="${product.image_url}" alt="${product.name}">
+                <p>${product.name} x ${item.quantity}</p>
+                <p>$${itemPrice.toFixed(2)}</p>
+            </div>
+        `;
+    });
+    const shipping = 5.00;
+    const total = subtotal + shipping;
+    checkoutSubtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+    checkoutShippingEl.textContent = `$${shipping.toFixed(2)}`;
+    checkoutTotalEl.textContent = `$${total.toFixed(2)}`;
+}
+
+placeOrderBtn.addEventListener('click', async () => {
+    if (!currentCartItems || currentCartItems.length === 0) {
+        alert('Your cart is empty. Cannot place an order.');
+        return;
+    }
+
+    placeOrderBtn.disabled = true;
+    placeOrderBtn.textContent = 'Processing...';
+
+    const { data: orderData, error: orderError } = await supabase.from('orders').insert([{
+        user_id: currentUser .id,
+        total_amount: parseFloat(checkoutTotalEl.textContent.replace('$', '')),
+        status: 'Processing'
+    }]).select('id');
+
+    if (orderError) {
+        console.error('Error placing order:', orderError.message);
+        alert('Failed to place order.');
+        placeOrderBtn.disabled = false;
+        placeOrderBtn.textContent = 'Place Order';
+        return;
+    }
+    
+    const orderId = orderData[0].id;
+    
+    const orderItemsToInsert = currentCartItems.map(item => ({
+        order_id: orderId,
+        product_id: item.product_id,
+        name: item.products.name,
+        image_url: item.products.image_url,
+        quantity: item.quantity,
+        price: item.products.price
+    }));
+
+    const { error: orderItemsError } = await supabase.from('order_items').insert(orderItemsToInsert);
+
+    if (orderItemsError) {
+        console.error('Error inserting order items:', orderItemsError.message);
+        await supabase.from('orders').delete().eq('id', orderId);
+        alert('Failed to place order. Please try again.');
+        placeOrderBtn.disabled = false;
+        placeOrderBtn.textContent = 'Place Order';
+        return;
+    }
+    
+    const updatePromises = currentCartItems.map(item => 
+        supabase.rpc('decrement_product_quantity', {
+            product_id_to_update: item.product_id,
+            quantity_to_subtract: item.quantity
+        })
+    );
+
+    const stockUpdateResults = await Promise.all(updatePromises);
+
+    const failedUpdate = stockUpdateResults.find(result => result.error);
+    if (failedUpdate) {
+        console.error('Error updating product stock:', failedUpdate.error.message);
+        alert('Your order was placed, but there was an issue updating stock levels. Please contact support.');
+    }
+
+    const { error: cartError } = await supabase.from('cart').delete().eq('user_id', currentUser .id);
+    if (cartError) {
+        console.error('Error clearing cart:', cartError.message);
+    }
+    
+    window.location.href = `order-tracking.html?orderId=${orderId}`;
+});
+
+// Initialize on page load
+updateAuthButton();
+loadCheckoutData();
+        </script>
+    </body>
+    </html>

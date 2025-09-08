@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - The Little Nest</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+       .account-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 4.2rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+        .account-container h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+        .address-section {
+            margin-bottom: 2rem;
+        }
+        .address-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .address-card {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 8px;
+            position: relative;
+            background-color: #f9f9f9;
+        }
+        .address-card.default {
+            border-color: #2ecc71;
+            background-color: #e8f9ee;
+        }
+        .address-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #34495e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .address-card .default-label {
+            font-size: 0.8em;
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        .address-card p {
+            margin: 0.25rem 0;
+            color: #7f8c8d;
+        }
+        .address-actions {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+        .address-actions button {
+            background: none;
+            border: none;
+            color: #3498db;
+            cursor: pointer;
+            font-size: 0.9em;
+            padding: 0;
+        }
+        .add-address-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+        .address-form {
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        .address-form.active {
+            display: flex;
+        }
+        .address-form input,
+        .address-form select {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .address-form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+        }
+        .address-form-actions button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .address-form-actions .save-btn {
+            background-color: #2ecc71;
+            color: white;
+        }
+        .address-form-actions .cancel-btn {
+            background-color: #bdc3c7;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" aria-label="The Little Nest logo and tagline">
+            <a href="homepage.html"><img class="logo1" src="logo-white.png" alt="The Little Nest Logo"></a>
+        </div>
+        <form role="search" class="search-container" aria-label="Search for products">
+            <input type="search" placeholder="Search for products" aria-label="Search for products" name="search" id="searchInput" autocomplete="off" />
+            <button type="submit" aria-label="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21.71 20.29l-4.388-4.388A7.95 7.95 0 0016 10a8 8 0 10-8 8 7.95 7.95 0 005.907-2.678l4.388 4.388a1 1 0 001.414-1.414zM4 10a6 6 0 116 6 6 6 0 01-6-6z" />
+                </svg>
+            </button>
+        </form>
+        <div class="header-buttons" role="region" aria-label="User options and cart">
+            <button class="btn-outline" aria-label="Login or Sign up" id="authBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 8a7 7 0 0 1 14 0z" />
+                </svg>
+                <span>Login or Sign up</span>
+            </button>
+            <button class="btn-outline" aria-label="View cart">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 18a2 2 0 1 0 2 2 2 2 0 0 0-2-2zm10 0a2 2 0 1 0 2 2 2 2 0 0 0-2-2zM7 14h10l3-9H6.21l-.21-1H1v2h3l3.6 7.59-1.35 2.44A1 1 0 0 0 7 15h9v-2H7z" />
+                </svg>
+                <span>CART</span>
+            </button>
+        </div>
+    </header>
+    <nav role="navigation" aria-label="Main navigation">
+        <ul class="header-nav">
+            <li tabindex="0" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-allproducts">
+                All Products
+                <ul id="dropdown-allproducts" role="menu" aria-label="All Products submenu">
+                    <a href="order.html"><li><img src="pillows.png" alt="Pillows"> Pillows</li></a>
+                    <a href="order.html"><li><img src="sheets.png" alt="Sheets"> Sheets</li></a>
+                    <a href="order.html"><li><img src="towel.png" alt="Towels"> Towels</li></a>
+                   <a href="order.html"> <li><img src="quilts.png" alt="Quilts"> Quilts</li></a>
+                    <a href="order.html"><li><img src="matressess.png" alt="Mattresses"> Mattresses</li></a>
+                    <a href="order.html"><li><img src="robes.png" alt="Robes"> Robes</li></a>
+                    <a href="order.html"><li><img src="duvet.png" alt="Duvets"> Duvets</li></a>
+                </ul>
+            </li>
+            <li  tabindex="0"><a href="dreamgreen.html">DreamGreen</a></li>
+            <li tabindex="0"><a href="faqs.html">FAQ's/Blog</a></li>
+            <li tabindex="0"><a href="about.html">About</a></li>
+            <li tabindex="0"><a href="contacts.html">Contact</a></li>
+            <li tabindex="0"><a href="order.html">Product</a></li>
+            <li tabindex="0"><a href="checkout.html">Cart</a></li>
+            <li tabindex="0"><a href="order-tracking.html">Order</a></li>
+            <div class="announcement" role="alert" aria-live="polite">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm-1 5a1 1 0 0 0-2 0v6a1 1 0 0 0 2 0V7zm2 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill-rule="evenodd" clip-rule="evenodd"/>
+                </svg>
+                Orders will be dispatched next Monday.
+            </div>
+        </ul>
+    </nav>
+    <main>
+        <div class="account-container">
+            <h2>My Account</h2>
+            <div class="address-section">
+                <h3>My Addresses</h3>
+                <div id="addressList" class="address-list">
+                    </div>
+                <button id="addAddressBtn" class="add-address-btn">+ Add a new address</button>
+                <form id="addressForm" class="address-form">
+                    <input type="hidden" id="addressId">
+                    <input type="text" id="fullName" placeholder="Full Name" required>
+                    <input type="text" id="mobileNumber" placeholder="Mobile Number" required>
+                    <input type="text" id="streetAddress" placeholder="Street Address" required>
+                    <input type="text" id="city" placeholder="City" required>
+                    <input type="text" id="province" placeholder="Province" required>
+                    <div class="address-form-actions">
+                        <button type="button" id="cancelBtn" class="cancel-btn">Cancel</button>
+                        <button type="submit" id="saveAddressBtn" class="save-btn">Save Address</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer aria-label="Footer">
+        <div class="footer-nav" aria-label="General Site Links">
+            <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">DreamGreen</a></li>
+                <li><a href="#">FAQ’s/Blog</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Products</a></li>
+            </ul>
+        </div>
+        <div class="footer-nav" aria-label="Account Links">
+            <ul>
+                <li><a href="#">My Account</a></li>
+                <li><a href="#">My Orders</a></li>
+                <li><a href="#">My Favourites</a></li>
+                <li><a href="#">My Returns</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="#">Returns & Shipping</a></li>
+            </ul>
+        </div>
+        <div class="logo-footer" aria-label="The Little Nest logo and tagline">
+            <img class="logo2" src="logo-black.png" alt="The Little Nest Logo Black">
+        </div>
+        <div class="footer-contact">
+            <strong>Contact Us</strong>
+            <p>Talk: 0000 000 000</p>
+            <p>Type: <a href="mailto:sales@thelittlenest.co.nz">sales@thelittlenest.co.nz</a></p>
+            <p>View: <a href="https://www.thelittlenest.co.nz" target="_blank" rel="noopener noreferrer">www.thelittlenest.co.nz</a></p>
+            <p>Visit: Marlborough, New Zealand</p>
+            <div class="socials" aria-label="Social media links">
+                <a href="#"><svg role="img" aria-labelledby="linkedinTitle" viewBox="0 0 24 24"><title id="linkedinTitle">LinkedIn</title><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.52 7.5H4.5v14H.52v-14zm7.23-.02h3.76v1.92h.05c.52-1 1.8-2.04 3.7-2.04 3.95 0 4.68 2.6 4.68 5.98v6.18h-3.95v-5.48c0-1.32 0-3.02-1.84-3.02s-2.12 1.45-2.12 2.95v5.55H7.75v-14z" /></svg></a>
+                <a href="#"><svg role="img" aria-labelledby="tikTokTitle" viewBox="0 0 448 512"><title id="tikTokTitle">TikTok</title><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg></a>
+                <a href="#"><svg role="img" aria-labelledby="facebookTitle" viewBox="0 0 24 24"><title id="facebookTitle">Facebook</title><path d="M22.675 0h-21.35C.6 0 0 .6 0 1.341v21.317C0 23.4.6 24 1.325 24H12v-9.294H9.375v-3.622H12V8.413c0-2.58 1.574-3.993 3.873-3.993 1.102 0 2.049.082 2.326.118v2.7l-1.744.001c-1.367 0-1.63.651-1.63 1.605v2.105h3.258l-.425 3.623H15.825V24h6.85c.725 0 1.325-.6 1.325-1.342V1.341C24 .6 23.4 0 22.675 0z" /></svg></a>
+                <a href="#"><svg role="img" aria-labelledby="youtubeTitle" viewBox="0 0 24 24"><title id="youtubeTitle">YouTube</title><path d="M23.498 6.186a2.954 2.954 0 0 0-2.08-2.09C19.6 3.571 12 3.571 12 3.571s-7.6 0-9.418.524a2.955 2.955 0 0 0-2.08 2.09C.021 7.986 0 12 0 12s.022 4.014.502 5.814a2.955 2.955 0 0 0 2.08 2.09C4.4 20.429 12 20.429 12 20.429s7.598 0 9.418-.525a2.955 2.955 0 0 0 2.08-2.09c.48-1.8.502-5.814.502-5.814s-.022-4.014-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" /></svg></a>
+                <a href="#"><svg role="img" aria-labelledby="instagramTitle" viewBox="0 0 24 24"><title id="instagramTitle">Instagram</title><path d="M7.75 2h8.5A5.753 5.753 0 0 1 22 7.75v8.5A5.753 5.753 0 0 1 16.25 22h-8.5A5.753 5.753 0 0 1 2 16.25v-8.5A5.753 5.753 0 0 1 7.75 2zm8.5 1.5h-8.5a4.251 4.251 0 0 0-4.25 4.25v8.5a4.251 4.251 0 0 0 4.25 4.25h8.5a4.251 4.251 0 0 0 4.25-4.25v-8.5a4.251 4.251 0 0 0-4.25-4.25zm-4.25 2.87a4.38 4.38 0 1 1 0 8.76 4.38 4.38 0 0 1 0-8.76zm0 1.5a2.88 2.88 0 1 0 0 5.76 2.88 2.88 0 0 0 0-5.763zm4.634-.88a1.04 1.04 0 1 1 0 2.08 1.04 1.04 0 0 1 0-2.08z" /></svg></a>
+            </div>
+        </div>
+    </footer>
+    <div class="leave-message" tabindex="0" id="chatBtn">Leave us a message</div>
+    <script src="homepage.js"></script>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+        const supabaseUrl = 'https://aiwthvlhyyjplajtrhob.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpd3RodmxoeXlqcGxhanRyaG9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5NzUwNzQsImV4cCI6MjA3MjU1MTA3NH0.sjZoaEqik_YZJ_S4KDKaDAy5jlxquxzJGwvCrLPOcRQ';
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        const authBtn = document.getElementById('authBtn');
+        const addressListEl = document.getElementById('addressList');
+        const addAddressBtn = document.getElementById('addAddressBtn');
+        const addressForm = document.getElementById('addressForm');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const saveAddressBtn = document.getElementById('saveAddressBtn');
+
+        const addressIdInput = document.getElementById('addressId');
+        const fullNameInput = document.getElementById('fullName');
+        const mobileNumberInput = document.getElementById('mobileNumber');
+        const streetAddressInput = document.getElementById('streetAddress');
+        const cityInput = document.getElementById('city');
+        const provinceInput = document.getElementById('province');
+
+        let currentUser = null;
+
+        async function updateAuthButton() {
+            const { data: { session }, error } = await supabase.auth.getSession();
+            if (error) {
+                console.error('Error getting session:', error.message);
+                return;
+            }
+            if (session && session.user) {
+                currentUser = session.user;
+                const displayName = currentUser.user_metadata?.full_name || currentUser.email || 'User';
+                authBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 8a7 7 0 0 1 14 0z" />
+                    </svg>
+                    <span>${displayName}</span>
+                `;
+                authBtn.onclick = async () => {
+                    await supabase.auth.signOut();
+                    window.location.reload();
+                };
+                authBtn.setAttribute('aria-label', `Logged in as ${displayName}. Click to log out.`);
+                loadAddresses();
+            } else {
+                authBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 8a7 7 0 0 1 14 0z" />
+                    </svg>
+                    <span>Login or Sign up</span>
+                `;
+                authBtn.onclick = () => {
+                    window.location.href = 'login.html';
+                };
+                authBtn.setAttribute('aria-label', 'Login or Sign up');
+                addressListEl.innerHTML = '<p>Please log in to manage your addresses.</p>';
+                addAddressBtn.style.display = 'none';
+            }
+        }
+
+        async function loadAddresses() {
+            if (!currentUser) return;
+
+            const { data: addresses, error } = await supabase
+                .from('addresses')
+                .select('*')
+                .eq('user_id', currentUser.id)
+                .order('is_default', { ascending: false });
+
+            if (error) {
+                console.error('Error fetching addresses:', error.message);
+                addressListEl.innerHTML = '<p>Failed to load addresses. Please try again.</p>';
+                return;
+            }
+
+            addressListEl.innerHTML = '';
+            if (addresses.length === 0) {
+                addressListEl.innerHTML = '<p>You have no saved addresses. Add one below!</p>';
+            } else {
+                addresses.forEach(address => {
+                    const addressCard = document.createElement('div');
+                    addressCard.className = `address-card ${address.is_default ? 'default' : ''}`;
+                    addressCard.innerHTML = `
+                        <h4>
+                            ${address.full_name} (${address.mobile_number})
+                            ${address.is_default ? '<span class="default-label">Default</span>' : ''}
+                        </h4>
+                        <p>${address.street}</p>
+                        <p>${address.city}, ${address.province}</p>
+                        <div class="address-actions">
+                            <button type="button" class="edit-btn" data-id="${address.id}">Edit</button> |
+                            <button type="button" class="delete-btn" data-id="${address.id}">Delete</button>
+                            ${!address.is_default ? ` | <button type="button" class="set-default-btn" data-id="${address.id}">Set as Default</button>` : ''}
+                        </div>
+                    `;
+                    addressListEl.appendChild(addressCard);
+                });
+            }
+        }
+
+        addAddressBtn.addEventListener('click', () => {
+            addressForm.classList.add('active');
+            addAddressBtn.style.display = 'none';
+            addressIdInput.value = '';
+            addressForm.reset();
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            addressForm.classList.remove('active');
+            addAddressBtn.style.display = 'block';
+        });
+
+        addressForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentUser) {
+                alert('You must be logged in to save an address.');
+                return;
+            }
+
+            saveAddressBtn.disabled = true;
+
+            const addressData = {
+                user_id: currentUser.id,
+                full_name: fullNameInput.value,
+                mobile_number: mobileNumberInput.value,
+                street: streetAddressInput.value,
+                city: cityInput.value,
+                province: provinceInput.value,
+            };
+            const addressId = addressIdInput.value;
+
+            let response;
+            if (addressId) {
+                // Update existing address
+                response = await supabase.from('addresses').update(addressData).eq('id', addressId);
+            } else {
+                // Insert new address
+                response = await supabase.from('addresses').insert([addressData]);
+            }
+
+            if (response.error) {
+                console.error('Error saving address:', response.error.message);
+                alert('Failed to save address. Please try again.');
+            } else {
+                alert('Address saved successfully!');
+                addressForm.classList.remove('active');
+                addAddressBtn.style.display = 'block';
+                loadAddresses();
+            }
+            saveAddressBtn.disabled = false;
+        });
+
+        addressListEl.addEventListener('click', async (e) => {
+            const target = e.target;
+            const addressId = target.dataset.id;
+
+            if (target.classList.contains('edit-btn')) {
+                const { data: address, error } = await supabase.from('addresses').select('*').eq('id', addressId).single();
+                if (error) {
+                    console.error('Error fetching address for edit:', error.message);
+                    return;
+                }
+                addressIdInput.value = address.id;
+                fullNameInput.value = address.full_name;
+                mobileNumberInput.value = address.mobile_number;
+                streetAddressInput.value = address.street;
+                cityInput.value = address.city;
+                provinceInput.value = address.province;
+
+                addressForm.classList.add('active');
+                addAddressBtn.style.display = 'none';
+
+            } else if (target.classList.contains('delete-btn')) {
+                if (!confirm('Are you sure you want to delete this address?')) return;
+                const { error } = await supabase.from('addresses').delete().eq('id', addressId);
+                if (error) {
+                    console.error('Error deleting address:', error.message);
+                    alert('Failed to delete address. Please try again.');
+                } else {
+                    loadAddresses();
+                }
+
+            } else if (target.classList.contains('set-default-btn')) {
+                // First, reset all other addresses for the user to not be default
+                await supabase.from('addresses').update({ is_default: false }).eq('user_id', currentUser.id);
+
+                // Then, set the selected address as default
+                const { error } = await supabase.from('addresses').update({ is_default: true }).eq('id', addressId);
+                if (error) {
+                    console.error('Error setting default address:', error.message);
+                    alert('Failed to set default address. Please try again.');
+                } else {
+                    loadAddresses();
+                }
+            }
+        });
+
+        updateAuthButton();
+    </script>
+</body>
+</html>

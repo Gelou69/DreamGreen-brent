@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Little Nest - Contact Us</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <style>
+
+ p.contacts-p {
+    width: 755px;
+}
+    .social-item {
+    width: 36px;
+}
+    .contact-item {
+    width: 36px;
+}
+    .main-nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+}
+
+/* Main Contact Section */
+.contact-page-main {
+    padding: 40px 10%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.contact-heading {
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    width: 200px;
+    margin: 20px auto;
+}
+
+.contact-content-container {
+    display: flex;
+    gap: 40px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.form-section, .info-section {
+    flex: 1;
+    min-width: 300px;
+}
+
+.form-section h2 {
+    font-size: 1.5em;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.submit-btn:hover {
+    background-color: #555;
+}
+
+.info-section p {
+    line-height: 1.5;
+}
+
+.contact-item, .social-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.contact-item i, .social-item i {
+    font-size: 2em;
+    color: #555;
+}
+
+.social-media-links hr {
+    margin: 20px 0;
+}
+
+/* Map Section */
+.map-section {
+    margin-top: 40px;
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+.map-section iframe {
+    border: none;
+}
+
+    </style>
+
+     <header>
+        <div class="logo" aria-label="The Little Nest logo and tagline">
+            <a href="homepage.html"><img class="logo1" src="logo-white.png" alt=""></a>
+        </div>
+
+        <form role="search" class="search-container" aria-label="Search for products">
+            <input type="search" placeholder="Search for products" aria-label="Search for products" name="search"
+                id="searchInput" autocomplete="off" />
+            <button type="submit" aria-label="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                        d="M21.71 20.29l-4.388-4.388A7.95 7.95 0 0016 10a8 8 0 10-8 8 7.95 7.95 0 005.907-2.678l4.388 4.388a1 1 0 001.414-1.414zM4 10a6 6 0 116 6 6 6 0 01-6-6z" />
+                </svg>
+            </button>
+        </form>
+
+        <div class="header-buttons" role="region" aria-label="User options and cart">
+            <!-- Login / Signup -->
+            <a href="account.html" class="btn-outline" aria-label="Login or Sign up" id="authBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 8a7 7 0 0 1 14 0z" />
+                </svg>
+                Login or SIGN UP
+            </a>
+
+
+            <!-- Cart -->
+            <button class="btn-outline" aria-label="View cart">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                        d="M7 18a2 2 0 1 0 2 2 2 2 0 0 0-2-2zm10 0a2 2 0 1 0 2 2 2 2 0 0 0-2-2zM7 14h10l3-9H6.21l-.21-1H1v2h3l3.6 7.59-1.35 2.44A1 1 0 0 0 7 15h9v-2H7z" />
+                </svg>
+                CART
+                <span class="cart-badge" id="cart-count"></span>
+            </button>
+        </div>
+
+        <!-- Logout -->
+        <a href="login.html" class="btn-outline" aria-label="Logout" id="logoutBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3H10v2h10v14H10v2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
+            </svg>
+            Logout
+        </a>
+
+    </header>
+
+    <nav role="navigation" aria-label="Main navigation">
+        <ul class="header-nav">
+            <li tabindex="0" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-allproducts">
+                <a href="products.html">All Products</a>
+                <ul id="dropdown-allproducts" role="menu" aria-label="All Products submenu">
+                    <a href="order.html"><li><img src="pillows.png" alt="Pillows"> Pillows</li></a>
+                    <a href="order.html"><li><img src="sheets.png" alt="Sheets"> Sheets</li></a>
+                    <a href="order.html"><li><img src="towel.png" alt="Towels"> Towels</li></a>
+                   <a href="order.html"> <li><img src="quilts.png" alt="Quilts"> Quilts</li></a>
+                    <a href="order.html"><li><img src="matressess.png" alt="Mattresses"> Mattresses</li></a>
+                    <a href="order.html"><li><img src="robes.png" alt="Robes"> Robes</li></a>
+                    <a href="order.html"><li><img src="duvet.png" alt="Duvets"> Duvets</li></a>
+                </ul>
+            </li>
+            <li tabindex="0"><a href="dreamgreen.html">DreamGreen</a></li>
+            <li tabindex="0"><a href="faqs.html">FAQ's/Blog</a></li>
+            <li tabindex="0"><a href="about.html">About</a></li>
+            <li tabindex="0"><a href="contacts.html">Contact</a></li>
+            <div class="announcement" role="alert" aria-live="polite">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path
+                        d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm-1 5a1 1 0 0 0-2 0v6a1 1 0 0 0 2 0V7zm2 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
+                        fill-rule="evenodd" clip-rule="evenodd" />
+                </svg>
+                Orders will be dispatched next Monday.
+            </div>
+        </ul>
+    </nav>
+
+    <main class="contact-page-main">
+        <div class="contact-heading">CONTACT</div>
+
+        <section class="contact-content-container">
+            <div class="form-section">
+                <h2>SEND US YOUR ENQUIRY</h2>
+                <form id="enquiryForm">
+                    <div class="form-group">
+                        <label for="fullName">Full name*</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email*</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone*</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiry">Inquiry*</label>
+                        <textarea id="inquiry" name="inquiry" rows="6" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">SUBMIT</button>
+                </form>
+            </div>
+
+            <div class="info-section">
+                <p>OPEN WEEKDAYS FROM 7:30 AM TO 5:00 PM</p>
+                <p>The Little Nest likes to hear from you on the phone, by email, or through an online enquiry. Please note that we will respond to all email inquiries but not necessarily on the same day.</p>
+                <div class="contact-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <strong>VISIT</strong>
+                        <p>Marlborough, NZ</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>
+                        <strong>TALK</strong>
+                        <p>0508 304 316</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>
+                        <strong>EMAIL</strong>
+                        <p>sales@thelittlenest.co.nz</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="social-media-links">
+                    <div class="social-item">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                        <div>
+                            <strong>VIEW</strong>
+                            <p>Follow us on LinkedIn</p>
+                        </div>
+                    </div>
+                    <div class="social-item">
+                        <i class="fa-brands fa-tiktok"></i>
+                        <div>
+                            <strong>VIEW</strong>
+                            <p>Follow us on Tik Tok</p>
+                        </div>
+                    </div>
+                    <div class="social-item">
+                        <i class="fa-brands fa-youtube"></i>
+                        <div>
+                            <strong>VIEW</strong>
+                            <p>Follow us on YouTube</p>
+                        </div>
+                    </div>
+                    <div class="social-item">
+                        <i class="fa-brands fa-facebook"></i>
+                        <div>
+                            <strong>VIEW</strong>
+                            <p>Follow us on Facebook</p>
+                        </div>
+                    </div>
+                    <div class="social-item">
+                        <i class="fa-brands fa-instagram"></i>
+                        <div>
+                            <strong>VIEW</strong>
+                            <p>Follow us on Instagram</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="map-section">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11709.006263503692!2d173.96696191696225!3d-41.5133036417789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d36e2f183c5a611%3A0x6d6490e665d93e11!2sMarlborough%2C%20New%20Zealand!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph"
+                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade" title="Map of Marlborough, New Zealand"></iframe>
+        </section>
+
+    </main>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Your Cart</h2>
+            <div id="cartItemsContainer">
+                <p class="empty-cart-message">Your cart is empty.</p>
+            </div>
+            <div id="cartSummary" class="cart-summary" style="display:none;">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotalPrice">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping:</span>
+                    <span id="shippingFee">$5.00</span>
+                </div>
+                <hr>
+                <div class="summary-row">
+                    <strong>Total:</strong>
+                    <strong id="totalPrice">$5.00</strong>
+                </div>
+                <a href="checkout.html" class="checkout-btn">CHECKOUT</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="loginPromptModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Login Required</h2>
+            <p>You need to be logged in to view your cart. Please log in or sign up.</p>
+            <button id="loginRedirectBtn" class="submit-btn">Go to Login Page</button>
+        </div>
+    </div>
+
+    <footer aria-label="Footer">
+        <div class="footer-nav" aria-label="General Site Links">
+            <ul>
+                <li><a href="about.html">About</a></li>
+                <li><a href="dreamgreen.html">DreamGreen</a></li>
+                <li><a href="faqs.html">FAQ’s/Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="products.html">Products</a></li>
+            </ul>
+        </div>
+        <div class="footer-nav" aria-label="Account Links">
+            <ul>
+                <li><a href="account.html">My Account</a></li>
+                <li><a href="orders.html">My Orders</a></li>
+                <li><a href="favourites.html">My Favourites</a></li>
+                <li><a href="returns.html">My Returns</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="terms.html">Terms & Conditions</a></li>
+                <li><a href="shipping.html">Returns & Shipping</a></li>
+            </ul>
+        </div>
+        <div class="logo-footer" aria-label="The Little Nest logo and tagline">
+            <img class="logo2" src="logo-black.png" alt="The Little Nest Logo Black">
+        </div>
+        <div class="footer-contact">
+            <strong>Contact Us</strong>
+            <p>Talk: 0000 000 000</p>
+            <p>Type: <a href="mailto:sales@thelittlenest.co.nz">sales@thelittlenest.co.nz</a></p>
+            <p>View: <a href="https://www.thelittlenest.co.nz" target="_blank"
+                    rel="noopener noreferrer">www.thelittlenest.co.nz</a></p>
+            <p>Visit: Marlborough, New Zealand</p>
+            <div class="socials" aria-label="Social media links">
+                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+    <div class="leave-message" tabindex="0" id="chatBtn">Leave us a message</div>
+
+    <script src="homepage.html"></script>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.44.2/+esm';
+
+        // Initialize Supabase client
+        const supabaseUrl = 'https://aiwthvlhyyjplajtrhob.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpd3RodmxoeXlqcGxhanRyaG9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5NzUwNzQsImV4cCI6MjA3MjU1MTA3NH0.sjZoaEqik_YZJ_S4KDKaDAy5jlxquxzJGwvCrLPOcRQ';
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        const authBtn = document.getElementById('authBtn');
+        const cartCountBadge = document.getElementById('cart-count');
+        const cartModal = document.getElementById('cartModal');
+        const cartItemsContainer = document.getElementById('cartItemsContainer');
+        const subtotalPrice = document.getElementById('subtotalPrice');
+        const shippingFee = document.getElementById('shippingFee');
+        const totalPrice = document.getElementById('totalPrice');
+        const cartSummary = document.getElementById('cartSummary');
+        const loginPromptModal = document.getElementById('loginPromptModal');
+        const loginRedirectBtn = document.getElementById('loginRedirectBtn');
+        let currentUser = null;
+
+        // Function to update cart count badge
+        async function updateCartCount() {
+            if (!currentUser) {
+                cartCountBadge.classList.remove('visible');
+                cartCountBadge.textContent = '';
+                return;
+            }
+            try {
+                const { count, error } = await supabase
+                    .from('cart')
+                    .select('product_id', { count: 'exact', head: true })
+                    .eq('user_id', currentUser.id);
+
+                if (error) throw error;
+                if (count > 0) {
+                    cartCountBadge.textContent = count;
+                    cartCountBadge.classList.add('visible');
+                } else {
+                    cartCountBadge.textContent = '';
+                    cartCountBadge.classList.remove('visible');
+                }
+            } catch (error) {
+                console.error('Error fetching cart count:', error.message);
+            }
+        }
+
+        // Function to handle authentication state and UI updates
+        async function checkAuthStatus() {
+            try {
+                const { data: { session }, error } = await supabase.auth.getSession();
+                if (error) throw error;
+
+                if (session) {
+                    currentUser = session.user;
+                    const userFirstName = currentUser.email.split('@')[0];
+                    authBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 8a7 7 0 0 1 14 0z"/></svg> ${userFirstName}`;
+                    authBtn.setAttribute('aria-label', `Logged in as ${currentUser.email}. Click to log out.`);
+                    authBtn.href = "#"; // Prevent navigation
+                    authBtn.onclick = logout;
+                } else {
+                    currentUser = null;
+                    authBtn.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 8a7 7 0 0 1 14 0z"/>
+                        </svg>
+                        Login or SIGN UP
+                    `;
+                    authBtn.setAttribute('aria-label', `Login or Sign up`);
+                    authBtn.href = "account.html";
+                    authBtn.onclick = null;
+                }
+                updateCartCount();
+            } catch (authError) {
+                console.error('Authentication error:', authError);
+            }
+        }
+
+        // Logout function
+        async function logout(e) {
+            e.preventDefault();
+            const { error } = await supabase.auth.signOut();
+            if (error) {
+                console.error("Logout failed:", error.message);
+                return;
+            }
+            window.location.href = "account.html";
+        }
+
+        // Modal functions
+        function openModal(modal) {
+            modal.style.display = 'flex';
+            modal.focus();
+        }
+
+        function closeModal(modal) {
+            modal.style.display = 'none';
+        }
+
+        // Cart Modal functions
+        async function openCartModal() {
+            if (!currentUser) {
+                openModal(loginPromptModal);
+                return;
+            }
+            await fetchCartItems();
+            openModal(cartModal);
+        }
+
+        async function fetchCartItems() {
+            try {
+                const { data: cartItems, error } = await supabase
+                    .from('cart')
+                    .select(`id, quantity, products (id, name, price, image_url, quantity as stock_quantity)`)
+                    .eq('user_id', currentUser.id)
+                    .order('id');
+
+                if (error) throw error;
+
+                cartItemsContainer.innerHTML = '';
+                let subtotal = 0;
+
+                if (cartItems.length === 0) {
+                    cartItemsContainer.innerHTML = '<p class="empty-cart-message">Your cart is empty.</p>';
+                    cartSummary.style.display = 'none';
+                    return;
+                }
+
+                cartItems.forEach((item) => {
+                    const product = item.products;
+                    const itemPrice = product.price * item.quantity;
+                    subtotal += itemPrice;
+
+                    const cartItemDiv = document.createElement('div');
+                    cartItemDiv.className = 'cart-item';
+                    cartItemDiv.dataset.itemId = item.id;
+                    cartItemDiv.innerHTML = `
+                        <img src="${product.image_url}" alt="${product.name}" class="cart-item-img" />
+                        <div class="cart-item-details">
+                            <p class="cart-item-name">${product.name}</p>
+                            <p class="cart-item-price">$${Number(product.price).toFixed(2)}</p>
+                        </div>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn decrease-btn" data-id="${item.id}" aria-label="Decrease quantity">-</button>
+                            <span class="item-quantity" aria-live="polite">${item.quantity}</span>
+                            <button class="quantity-btn increase-btn" data-id="${item.id}" aria-label="Increase quantity">+</button>
+                        </div>
+                        <button class="remove-item-btn" data-id="${item.id}" aria-label="Remove item">×</button>
+                    `;
+                    cartItemsContainer.appendChild(cartItemDiv);
+                });
+
+                const shipping = 5.0;
+                const total = subtotal + shipping;
+                subtotalPrice.textContent = `$${subtotal.toFixed(2)}`;
+                shippingFee.textContent = `$${shipping.toFixed(2)}`;
+                totalPrice.textContent = `$${total.toFixed(2)}`;
+                cartSummary.style.display = 'block';
+            } catch (error) {
+                console.error('Error fetching cart items:', error.message);
+                cartItemsContainer.innerHTML = '<p class="empty-cart-message">Could not load cart. Please try again.</p>';
+                cartSummary.style.display = 'none';
+            }
+        }
+
+        // Form Submission Handler
+        const enquiryForm = document.getElementById('enquiryForm');
+        enquiryForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(enquiryForm);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                // This is a placeholder for form submission logic, e.g., sending to a backend API.
+                // In a real-world scenario, you would send this to a server endpoint.
+                // For this example, we'll just log it and show a success message.
+                console.log("Form data submitted:", data);
+                alert('Thank you for your enquiry! We will get back to you shortly.');
+                enquiryForm.reset();
+            } catch (error) {
+                console.error("Error submitting form:", error);
+                alert('There was an error submitting your form. Please try again.');
+            }
+        });
+
+        // Event Listeners
+        document.querySelector('.btn-outline[aria-label="View cart"]').addEventListener('click', openCartModal);
+        document.querySelector('#cartModal .close-btn').addEventListener('click', () => closeModal(cartModal));
+        cartModal.addEventListener('click', (event) => {
+            if (event.target === cartModal) closeModal(cartModal);
+        });
+        loginPromptModal.querySelector('.close-btn').addEventListener('click', () => closeModal(loginPromptModal));
+        loginRedirectBtn.addEventListener('click', () => {
+            closeModal(loginPromptModal);
+            window.location.href = 'account.html';
+        });
+
+        document.addEventListener('DOMContentLoaded', checkAuthStatus);
+        supabase.auth.onAuthStateChange((event, session) => {
+            checkAuthStatus();
+        });
+    </script>
+</body>
+</html>

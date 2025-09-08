@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Little Nest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="style.css">
+<style>
+  /* Add this to your styles.css file */
+
+.faq-answer {
+    display: none;
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #555;
+    transition: opacity 0.3s ease;
+}
+
+.faq-answer.active {
+    display: block;
+}
+  .main-nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: #555;
+    font-size: 0.9em;
+}
+
+.header-notification {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    font-size: 0.8em;
+}
+
+/* FAQ Section */
+.faq-container {
+    padding: 50px 10%;
+    text-align: center;
+}
+
+.faq-heading {
+    font-size: 2em;
+    font-weight: 500;
+    margin-bottom: 40px;
+    border: 1px solid #333;
+    padding: 20px 0;
+    display: inline-block;
+    width: 100%;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.faq-item {
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+}
+
+.faq-question {
+    font-size: 1em;
+    font-weight: 500;
+    margin: 0 0 15px 0;
+}
+
+.faq-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+.faq-button:hover {
+    background-color: #444;
+}
+
+/* Cart Badge Styles */
+.cart-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 19px;
+  right: 500px; /* Adjust this based on your layout */
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.3s ease-in-out;
+}
+
+.cart-badge.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* --- Modal Styles --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none; /* Initially hidden */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 2rem;
+  font-weight: 300;
+  cursor: pointer;
+  color: #888;
+}
+
+.modal-title {
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+#cartItemsContainer {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 15px;
+  margin-bottom: 1rem;
+}
+
+/* Cart Item Card */
+.cart-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+  gap: 1.5rem;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-item-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.cart-item-details {
+  flex-grow: 1;
+}
+
+.cart-item-name {
+  font-weight: bold;
+  margin: 0;
+}
+
+.cart-item-price {
+  color: #3498db;
+  margin: 0.25rem 0;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantity-btn {
+  background: #f1f1f1;
+  border: 1px solid #ddd;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.quantity-btn:hover {
+  background: #e0e0e0;
+}
+
+.item-quantity {
+  width: 40px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.25rem;
+}
+
+.remove-item-btn {
+  background: transparent;
+  border: none;
+  color: #e74c3c;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+/* Cart Summary */
+.cart-summary {
+  padding-top: 1rem;
+  border-top: 2px solid #f0f0f0;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.total-row {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 1rem;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.checkout-btn:hover {
+  background-color: #a8a8a8;
+  color: #000;
+}
+
+.empty-cart-message {
+  text-align: center;
+  color: #666;
+  margin: 2rem 0;
+}
+
+/* Styles for the new Login Prompt Modal */
+.modal-message {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Styles for the dynamically created login required modal */
+#login-required-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeInModal 0.4s forwards;
+}
+
+#login-required-modal .modal-content {
+  background: #111;
+  padding: 2.5rem 3rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  color: #eee;
+  font-family: 'Montserrat', sans-serif; /* Using your font */
+  transform: translateY(-20px);
+  animation: slideUp 0.4s forwards;
+  border: 2px solid #eee;
+}
+
+#login-required-modal p {
+  font-size: 1.2rem;
+  margin-bottom: 1.8rem;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+}
+
+#login-required-modal #go-to-login-btn {
+  background: #eee;
+  color: #111;
+  border: 2px solid #eee;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+#login-required-modal #go-to-login-btn:hover {
+  background: #111;
+  color: #eee;
+  border-color: #eee;
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.6);
+  transform: scale(1.05);
+}
+
+#login-required-modal #go-to-login-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.4);
+}
+
+@keyframes fadeInModal {
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  to { transform: translateY(0); }
+}
+</style>
+<body>
+    <header>
+    <div class="logo" aria-label="The Little Nest logo and tagline">
+      <a href="homepage.html"><img class="logo1" src="logo-white.png" alt=""></a>
+    </div>
+
+    <form role="search" class="search-container" aria-label="Search for products">
+      <input type="search" placeholder="Search for products" aria-label="Search for products" name="search"
+        id="searchInput" autocomplete="off" />
+      <button type="submit" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M21.71 20.29l-4.388-4.388A7.95 7.95 0 0016 10a8 8 0 10-8 8 7.95 7.95 0 005.907-2.678l4.388 4.388a1 1 0 001.414-1.414zM4 10a6 6 0 116 6 6 6 0 01-6-6z" />
+        </svg>
+      </button>
+    </form>
+
+    <div class="header-buttons" role="region" aria-label="User options and cart">
+  <!-- Login / Signup -->
+  <a href="account.html" class="btn-outline" aria-label="Login or Sign up" id="authBtn">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 8a7 7 0 0 1 14 0z" />
+    </svg>
+    Login or SIGN UP
+  </a>
+
+ 
+  <!-- Cart -->
+  <button class="btn-outline" aria-label="View cart">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M7 18a2 2 0 1 0 2 2 2 2 0 0 0-2-2zm10 0a2 2 0 1 0 2 2 2 2 0 0 0-2-2zM7 14h10l3-9H6.21l-.21-1H1v2h3l3.6 7.59-1.35 2.44A1 1 0 0 0 7 15h9v-2H7z" />
+    </svg>
+    CART
+    <span class="cart-badge" id="cart-count"></span>
+  </button>
+</div>
+
+ <!-- Logout -->
+  <a href="logout.html" class="btn-outline" aria-label="Logout" id="logoutBtn">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3H10v2h10v14H10v2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
+    </svg>
+    Logout
+  </a>
+
+  </header>
+  <nav role="navigation" aria-label="Main navigation">
+    <ul class="header-nav">
+      <li tabindex="0" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-allproducts">
+        All Products 
+        <ul id="dropdown-allproducts" role="menu" aria-label="All Products submenu">
+                    <a href="order.html"><li><img src="pillows.png" alt="Pillows"> Pillows</li></a>
+                    <a href="order.html"><li><img src="sheets.png" alt="Sheets"> Sheets</li></a>
+                    <a href="order.html"><li><img src="towel.png" alt="Towels"> Towels</li></a>
+                   <a href="order.html"> <li><img src="quilts.png" alt="Quilts"> Quilts</li></a>
+                    <a href="order.html"><li><img src="matressess.png" alt="Mattresses"> Mattresses</li></a>
+                    <a href="order.html"><li><img src="robes.png" alt="Robes"> Robes</li></a>
+                    <a href="order.html"><li><img src="duvet.png" alt="Duvets"> Duvets</li></a>
+                </ul>
+      </li>
+      <li  tabindex="0"><a href="dreamgreen.html">DreamGreen</a></li>
+      <li tabindex="0"><a href="faqs.html">FAQ's/Blog</a></li>
+      <li tabindex="0"><a href="about.html">About</a></li>
+      <li tabindex="0"><a href="contacts.html">Contact</a></li>
+      <div class="announcement" role="alert" aria-live="polite">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm-1 5a1 1 0 0 0-2 0v6a1 1 0 0 0 2 0V7zm2 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill-rule="evenodd" clip-rule="evenodd"/>
+        </svg>
+        Orders will be dispatched next Monday.
+      </div>
+    </ul>
+  </nav>
+    <main class="faq-container">
+        <h1 class="faq-heading">FAQs</h1>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <p class="faq-question">What makes The Little Nest products different from other baby and home essentials?</p>
+                <div class="faq-answer">
+                    <p>Our products are made from 100% organic and sustainable materials, ensuring they are gentle on your baby's skin and kind to the environment. We focus on quality craftsmanship and minimalist designs to create items that are both beautiful and durable.</p>
+                </div>
+                <button class="faq-button">CLICK TO VIEW</button>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-question">Are your fabrics organic, sustainable, or eco-friendly?</p>
+                <div class="faq-answer">
+                    <p>Yes, all of our fabrics are certified organic, sustainable, and eco-friendly. We use GOTS-certified cotton and other natural fibers, processed without harmful chemicals, to ensure our products meet the highest environmental standards.</p>
+                </div>
+                <button class="faq-button">CLICK TO VIEW</button>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-question">How do I care for and wash my Little Nest bedding and pillows?</p>
+                <div class="faq-answer">
+                    <p>We recommend a cold, gentle machine wash with a mild detergent. Avoid using bleach or harsh chemicals. Tumble dry on low or line dry to maintain the integrity of the fabric and filling.</p>
+                </div>
+                <button class="faq-button">CLICK TO VIEW</button>
+            </div>
+            <div class="faq-item">
+                <p class="faq-question">How do I care for and wash my Little Nest bedding and pillows?</p>
+                <div class="faq-answer">
+                    <p>We recommend a cold, gentle machine wash with a mild detergent. Avoid using bleach or harsh chemicals. Tumble dry on low or line dry to maintain the integrity of the fabric and filling.</p>
+                </div>
+                <button class="faq-button">CLICK TO VIEW</button>
+            </div>
+            <div class="faq-item">
+                <p class="faq-question">How do I care for and wash my Little Nest bedding and pillows?</p>
+                <div class="faq-answer">
+                    <p>We recommend a cold, gentle machine wash with a mild detergent. Avoid using bleach or harsh chemicals. Tumble dry on low or line dry to maintain the integrity of the fabric and filling.</p>
+                </div>
+                <button class="faq-button">CLICK TO VIEW</button>
+            </div>
+            <div class="faq-item">
+                <p class="faq-question">How do I care for and wash my Little Nest bedding and pillows?</p>
+                <div class="faq-answer">
+                    <p>We recommend a cold, gentle machine wash with a mild detergent. Avoid using bleach or harsh chemicals. Tumble dry on low or line dry to maintain the integrity of the fabric and filling.</p>
+                </div>
+                <button class="faq-button">CLICK TO VIEW</button>
+            </div>
+ <div class="faq-item">
+                <p class="faq-question">How do I care for and wash my Little Nest bedding and pillows?</p>
+                <div class="faq-answer">
+                    <p>We recommend a cold, gentle machine wash with a mild detergent. Avoid using bleach or harsh chemicals. Tumble dry on low or line dry to maintain the integrity of the fabric and filling.</p>
+                </div>
+                <button class="faq-button">CLICK TO VIEW</button>
+            </div>
+            <div class="faq-item">
+                <p class="faq-question">How do I care for and wash my Little Nest bedding and pillows?</p>
+                <div class="faq-answer">
+                    <p>We recommend a cold, gentle machine wash with a mild detergent. Avoid using bleach or harsh chemicals. Tumble dry on low or line dry to maintain the integrity of the fabric and filling.</p>
+                </div>
+                <button class="faq-button">CLICK TO VIEW</button>
+            </div>
+            <div class="faq-item">
+                <p class="faq-question">How do I care for and wash my Little Nest bedding and pillows?</p>
+                <div class="faq-answer">
+                    <p>We recommend a cold, gentle machine wash with a mild detergent. Avoid using bleach or harsh chemicals. Tumble dry on low or line dry to maintain the integrity of the fabric and filling.</p>
+                </div>
+                <button class="faq-button">CLICK TO VIEW</button>
+            </div>
+            </div>
+    </main>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="cartModalTitle" tabindex="-1">
+        <div class="modal-content">
+            <button class="close-btn" aria-label="Close cart modal">&times;</button>
+            <h2 class="modal-title" id="cartModalTitle">Your Cart</h2>
+            <div id="cartItemsContainer">
+                <p class="empty-cart-message">Your cart is empty.</p>
+            </div>
+            <div id="cartSummary" class="cart-summary" style="display: none;">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotalPrice">$0.00</span>
+                </div>
+                <div class="summary-row shipping-row">
+                    <span>Shipping Fee:</span>
+                    <span id="shippingFee">$5.00</span>
+                </div>
+                <hr />
+                <div class="summary-row total-row">
+                    <span>Total:</span>
+                    <span id="totalPrice">$0.00</span>
+                </div>
+                <a href="checkout.html" class="checkout-btn" style="text-decoration: none;">Proceed to Checkout</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Prompt Modal -->
+    <div id="loginPromptModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="loginPromptTitle" tabindex="-1">
+        <div class="modal-content">
+            <button class="close-btn" aria-label="Close login prompt modal">&times;</button>
+            <h2 class="modal-title" id="loginPromptTitle">Login Required</h2>
+            <p class="modal-message">Please log in to add items to your cart and proceed with your order.</p>
+            <button id="loginRedirectBtn" class="checkout-btn">Go to Login Page</button>
+        </div>
+    </div>
+
+  <footer aria-label="Footer">
+    <div class="footer-nav" aria-label="General Site Links">
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">DreamGreen</a></li>
+        <li><a href="#">FAQ’s/Blog</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Products</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav" aria-label="Account Links">
+      <ul>
+        <li><a href="#">My Account</a></li>
+        <li><a href="#">My Orders</a></li>
+        <li><a href="#">My Favourites</a></li>
+        <li><a href="#">My Returns</a></li>
+        <li><a href="#">Login</a></li>
+        <li><a href="#">Terms & Conditions</a></li>
+        <li><a href="#">Returns & Shipping</a></li>
+      </ul>
+    </div>
+    <div class="logo-footer" aria-label="The Little Nest logo and tagline">
+      <img class="logo2" src="logo-black.png" alt="The Little Nest Logo Black">
+    </div>
+    <div class="footer-contact">
+      <strong>Contact Us</strong>
+      <p>Talk: 0000 000 000</p>
+      <p>Type: <a href="mailto:sales@thelittlenest.co.nz">sales@thelittlenest.co.nz</a></p>
+      <p>View: <a href="https://www.thelittlenest.co.nz" target="_blank" rel="noopener noreferrer">www.thelittlenest.co.nz</a></p>
+      <p>Visit: Marlborough, New Zealand</p>
+      <div class="socials" aria-label="Social media links">
+        <a href="#"><svg role="img" aria-labelledby="linkedinTitle" viewBox="0 0 24 24"><title id="linkedinTitle">LinkedIn</title><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.52 7.5H4.5v14H.52v-14zm7.23-.02h3.76v1.92h.05c.52-1 1.8-2.04 3.7-2.04 3.95 0 4.68 2.6 4.68 5.98v6.18h-3.95v-5.48c0-1.32 0-3.02-1.84-3.02s-2.12 1.45-2.12 2.95v5.55H7.75v-14z" /></svg></a>
+        <a href="#"><svg role="img" aria-labelledby="tikTokTitle" viewBox="0 0 448 512"><title id="tikTokTitle">TikTok</title><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg></a>
+        <a href="#"><svg role="img" aria-labelledby="facebookTitle" viewBox="0 0 24 24"><title id="facebookTitle">Facebook</title><path d="M22.675 0h-21.35C.6 0 0 .6 0 1.341v21.317C0 23.4.6 24 1.325 24H12v-9.294H9.375v-3.622H12V8.413c0-2.58 1.574-3.993 3.873-3.993 1.102 0 2.049.082 2.326.118v2.7l-1.744.001c-1.367 0-1.63.651-1.63 1.605v2.105h3.258l-.425 3.623H15.825V24h6.85c.725 0 1.325-.6 1.325-1.342V1.341C24 .6 23.4 0 22.675 0z" /></svg></a>
+        <a href="#"><svg role="img" aria-labelledby="youtubeTitle" viewBox="0 0 24 24"><title id="youtubeTitle">YouTube</title><path d="M23.498 6.186a2.954 2.954 0 0 0-2.08-2.09C19.6 3.571 12 3.571 12 3.571s-7.6 0-9.418.524a2.955 2.955 0 0 0-2.08 2.09C.021 7.986 0 12 0 12s.022 4.014.502 5.814a2.955 2.955 0 0 0 2.08 2.09C4.4 20.429 12 20.429 12 20.429s7.598 0 9.418-.525a2.955 2.955 0 0 0 2.08-2.09c.48-1.8.502-5.814.502-5.814s-.022-4.014-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" /></svg></a>
+        <a href="#"><svg role="img" aria-labelledby="instagramTitle" viewBox="0 0 24 24"><title id="instagramTitle">Instagram</title><path d="M7.75 2h8.5A5.753 5.753 0 0 1 22 7.75v8.5A5.753 5.753 0 0 1 16.25 22h-8.5A5.753 5.753 0 0 1 2 16.25v-8.5A5.753 5.753 0 0 1 7.75 2zm8.5 1.5h-8.5a4.251 4.251 0 0 0-4.25 4.25v8.5a4.251 4.251 0 0 0 4.25 4.25h8.5a4.251 4.251 0 0 0 4.25-4.25v-8.5a4.251 4.251 0 0 0-4.25-4.25zm-4.25 2.87a4.38 4.38 0 1 1 0 8.76 4.38 4.38 0 0 1 0-8.76zm0 1.5a2.88 2.88 0 1 0 0 5.76 2.88 2.88 0 0 0 0-5.763zm4.634-.88a1.04 1.04 0 1 1 0 2.08 1.04 1.04 0 0 1 0-2.08z" /></svg></a>
+      </div>
+    </div>
+  </footer>
+  <div class="leave-message" tabindex="0" id="chatBtn">Leave us a message</div>
+  <script src="faqs.js"></script>
+  <script src="homepage.js"></script>
+    <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabaseUrl = 'https://aiwthvlhyyjplajtrhob.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpd3RodmxoeXlqcGxhanRyaG9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5NzUwNzQsImV4cCI6MjA3MjU1MTA3NH0.sjZoaEqik_YZJ_S4KDKaDAy5jlxquxzJGwvCrLPOcRQ';
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    const authBtn = document.getElementById('authBtn');
+    const cartCountBadge = document.getElementById('cart-count');
+    const cartModal = document.getElementById('cartModal');
+    const cartItemsContainer = document.getElementById('cartItemsContainer');
+    const subtotalPrice = document.getElementById('subtotalPrice');
+    const shippingFee = document.getElementById('shippingFee');
+    const totalPrice = document.getElementById('totalPrice');
+    const cartSummary = document.getElementById('cartSummary');
+    let currentUser = null;
+    let allProducts = []; // This will be used if you add product display later
+
+    // New elements for login prompt modal
+    const loginPromptModal = document.getElementById('loginPromptModal');
+    const loginRedirectBtn = document.getElementById('loginRedirectBtn');
+
+    async function updateCartCount() {
+      if (!currentUser) {
+        if (cartCountBadge) {
+          cartCountBadge.classList.remove('visible');
+          cartCountBadge.textContent = '';
+        }
+        return;
+      }
+      try {
+        const { count, error } = await supabase
+          .from('cart')
+          .select('product_id', { count: 'exact', head: true })
+          .eq('user_id', currentUser.id);
+
+        if (error) throw error;
+        if (count > 0) {
+          if (cartCountBadge) {
+            cartCountBadge.textContent = count;
+            cartCountBadge.classList.add('visible');
+          }
+        } else {
+          if (cartCountBadge) {
+            cartCountBadge.textContent = '';
+            cartCountBadge.classList.remove('visible');
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching cart count:', error.message);
+      }
+    }
+
+    async function checkAuthAndLoadProducts() {
+      try {
+        const {
+          data: { session },
+          error,
+        } = await supabase.auth.getSession();
+        if (error) throw error;
+        if (session) {
+          currentUser = session.user;
+          const userFirstName = currentUser.email.split('@')[0];
+          authBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 8a7 7 0 0 1 14 0z"/></svg> ${userFirstName}`;
+          authBtn.setAttribute('aria-label', `Logged in as ${currentUser.email}. Click to log out.`);
+          authBtn.removeEventListener('click', redirectToAccount); // Remove old listener
+          authBtn.addEventListener('click', logout); // Add new logout listener
+          await updateCartCount();
+          // If you have products to load on this page, call fetchAndDisplayProducts() here
+          // await fetchAndDisplayProducts(); 
+        } else {
+          // No session, ensure authBtn links to account.html and show login prompt if needed
+          authBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 8a7 7 0 0 1 14 0z"/>
+            </svg>
+            Login or SIGN UP
+          `;
+          authBtn.setAttribute('aria-label', `Login or Sign up`);
+          authBtn.removeEventListener('click', logout); // Remove logout listener
+          authBtn.addEventListener('click', redirectToAccount); // Add listener to redirect to account.html
+        }
+      } catch (authError) {
+        console.error('Authentication error:', authError);
+        // Handle error, maybe show a message to the user
+      }
+    }
+
+    function redirectToAccount() {
+      window.location.href = "account.html";
+    }
+
+    function showLoginRequiredModal() {
+      let modal = document.getElementById('login-required-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'login-required-modal';
+
+        modal.innerHTML = `
+          <div class="modal-content">
+            <p>You need to log in first to access this content.</p>
+            <button id="go-to-login-btn">Login</button>
+          </div>
+        `;
+        document.body.appendChild(modal);
+
+        document.getElementById('go-to-login-btn').addEventListener('click', () => {
+          window.location.href = 'login.html';
+        });
+      }
+      modal.style.display = 'flex';
+    }
+
+    // Function to open the login prompt modal (for cart actions)
+    function openLoginPromptModal() {
+      loginPromptModal.style.display = 'flex';
+      loginPromptModal.focus();
+    }
+
+    // Function to close the login prompt modal
+    function closeLoginPromptModal() {
+      loginPromptModal.style.display = 'none';
+    }
+
+    // Event listener for the "Go to Login Page" button in the prompt modal
+    loginRedirectBtn.addEventListener('click', () => {
+      closeLoginPromptModal();
+      window.location.href = 'login.html';
+    });
+
+    // Event listener to close the login prompt modal when clicking outside
+    loginPromptModal.addEventListener('click', (event) => {
+      if (event.target === loginPromptModal) {
+        closeLoginPromptModal();
+      }
+    });
+
+    // Event listener for the close button in the login prompt modal
+    loginPromptModal.querySelector('.close-btn').addEventListener('click', closeLoginPromptModal);
+
+    async function handleAddToCart(event) {
+      // This function is a placeholder as there are no product cards on this homepage.
+      // It demonstrates how you would check for login before adding to cart.
+      if (!currentUser) {
+        openLoginPromptModal();
+        return;
+      }
+      alert('Add to cart functionality would go here for a product. User is logged in!');
+      // Example: You would typically get product ID and quantity from the clicked product card
+      // const productId = event.target.dataset.productId;
+      // const quantity = 1; // Or from an input field
+      // try {
+      //   const { error } = await supabase.from('cart').insert([{ user_id: currentUser.id, product_id: productId, quantity: quantity }]);
+      //   if (error) throw error;
+      //   await updateCartCount();
+      //   alert('Item added to cart!');
+      // } catch (error) {
+      //   console.error('Error adding to cart:', error.message);
+      //   alert('Could not add item to cart. Please try again.');
+      // }
+    }
+
+    async function logout() {
+      await supabase.auth.signOut();
+      window.location.href = "login.html";
+    }
+
+    // Modal functions and cart management
+    async function openCartModal() {
+      if (!currentUser) {
+        openLoginPromptModal();
+        return;
+      }
+      await fetchCartItems();
+      cartModal.style.display = 'flex';
+      cartModal.focus();
+    }
+
+    function closeCartModal() {
+      cartModal.style.display = 'none';
+    }
+
+    async function fetchCartItems() {
+      try {
+        const { data: cartItems, error } = await supabase
+          .from('cart')
+          .select(`
+            id,
+            quantity,
+            products (
+              id,
+              name,
+              price,
+              image_url,
+              quantity as stock_quantity
+            )
+          `)
+          .eq('user_id', currentUser.id)
+          .order('id');
+        if (error) throw error;
+        cartItemsContainer.innerHTML = '';
+        let subtotal = 0;
+        if (cartItems.length === 0) {
+          cartItemsContainer.innerHTML = '<p class="empty-cart-message">Your cart is empty.</p>';
+          cartSummary.style.display = 'none';
+          return;
+        }
+
+        cartItems.forEach((item) => {
+          const product = item.products;
+          const itemPrice = product.price * item.quantity;
+          subtotal += itemPrice;
+
+          const cartItemDiv = document.createElement('div');
+          cartItemDiv.className = 'cart-item';
+          cartItemDiv.dataset.itemId = item.id;
+          cartItemDiv.innerHTML = `
+            <img src="${product.image_url}" alt="${product.name}" class="cart-item-img" />
+            <div class="cart-item-details">
+              <p class="cart-item-name">${product.name}</p>
+              <p class="cart-item-price">$${Number(product.price).toFixed(2)}</p>
+            </div>
+            <div class="quantity-controls">
+              <button class="quantity-btn decrease-btn" data-id="${item.id}" aria-label="Decrease quantity">-</button>
+              <span class="item-quantity" aria-live="polite">${item.quantity}</span>
+              <button class="quantity-btn increase-btn" data-id="${item.id}" aria-label="Increase quantity">+</button>
+            </div>
+            <button class="remove-item-btn" data-id="${item.id}" aria-label="Remove item">&times;</button>
+          `;
+          cartItemsContainer.appendChild(cartItemDiv);
+        });
+
+        const shipping = 5.0;
+        const total = subtotal + shipping;
+        subtotalPrice.textContent = `$${subtotal.toFixed(2)}`;
+        shippingFee.textContent = `$${shipping.toFixed(2)}`;
+        totalPrice.textContent = `$${total.toFixed(2)}`;
+        cartSummary.style.display = 'block';
+      } catch (error) {
+        console.error('Error fetching cart items:', error.message);
+        cartItemsContainer.innerHTML = '<p class="empty-cart-message">Could not load cart. Please try again.</p>';
+        cartSummary.style.display = 'none';
+      }
+    }
+
+    async function handleCartAction(event) {
+      const target = event.target;
+      const itemId = target.dataset.id;
+      if (!itemId) return;
+
+      if (target.matches('.remove-item-btn')) {
+        await removeItem(itemId);
+      } else if (target.matches('.increase-btn')) {
+        await changeQuantity(itemId, 1);
+      } else if (target.matches('.decrease-btn')) {
+        await changeQuantity(itemId, -1);
+      }
+    }
+
+    async function removeItem(itemId) {
+      try {
+        // First, get the cart item to know the product_id and quantity
+        const { data: cartItem, error: fetchError } = await supabase
+          .from('cart')
+          .select('product_id, quantity')
+          .eq('id', itemId)
+          .single();
+
+        if (fetchError) throw fetchError;
+
+        // Then, delete the item from the cart
+        const { error: deleteError } = await supabase.from('cart').delete().eq('id', itemId);
+        if (deleteError) throw deleteError;
+
+        // Finally, update the product stock
+        const { data: product, error: productFetchError } = await supabase
+          .from('products')
+          .select('quantity')
+          .eq('id', cartItem.product_id)
+          .single();
+
+        if (productFetchError) throw productFetchError;
+
+        const newStock = product.quantity + cartItem.quantity;
+        const { error: updateStockError } = await supabase
+          .from('products')
+          .update({ quantity: newStock })
+          .eq('id', cartItem.product_id);
+
+        if (updateStockError) {
+          console.error('Error updating product stock after removal:', updateStockError);
+          alert('Item removed from cart, but failed to update product stock. Please contact support.');
+        }
+
+        await fetchCartItems();
+        await updateCartCount();
+      } catch (error) {
+        console.error('Error removing item:', error.message);
+        alert('Failed to remove item. Please try again.');
+      }
+    }
+
+    async function changeQuantity(itemId, change) {
+      try {
+        const { data: cartItem, error: fetchError } = await supabase
+          .from('cart')
+          .select('quantity, product_id, products(quantity)') // Select 'quantity' from products table as 'stock_quantity'
+          .eq('id', itemId)
+          .single();
+        if (fetchError) throw fetchError;
+
+        const currentCartQuantity = cartItem.quantity;
+        const productStock = cartItem.products.quantity; // Use 'quantity' from products table
+        const newQuantity = currentCartQuantity + change;
+
+        if (newQuantity <= 0) {
+          await removeItem(itemId);
+          return;
+        }
+
+        // Check against the total available stock (current stock + items already in cart)
+        if (newQuantity > productStock + currentCartQuantity) {
+          alert(`Sorry, only ${productStock + currentCartQuantity} item(s) available in total.`);
+          return;
+        }
+
+        // Calculate the actual change in stock needed
+        const stockChange = -change; // If quantity increases by 1, stock decreases by 1
+
+        // Update cart item quantity
+        const { error: updateCartError } = await supabase
+          .from('cart')
+          .update({ quantity: newQuantity })
+          .eq('id', itemId);
+        if (updateCartError) throw updateCartError;
+
+        // Update product stock
+        const { error: updateProductError } = await supabase
+          .from('products')
+          .update({ quantity: productStock + stockChange })
+          .eq('id', cartItem.product_id);
+        if (updateProductError) {
+          console.error('Error updating product stock:', updateProductError);
+          alert('Quantity updated in cart, but failed to update product stock. Please contact support.');
+        }
+
+        await fetchCartItems();
+        await updateCartCount();
+      } catch (error) {
+        console.error('Error changing quantity:', error.message);
+        alert('Failed to change quantity. Please try again.');
+      }
+    }
+
+    // Event Listeners for the cart modal
+    document.querySelector('#cartModal .close-btn').addEventListener('click', closeCartModal);
+    document.querySelector('.btn-outline[aria-label="View cart"]').addEventListener('click', openCartModal);
+    cartModal.addEventListener('click', (event) => {
+      if (event.target === cartModal) {
+        closeCartModal();
+      }
+    });
+    cartItemsContainer.addEventListener('click', handleCartAction);
+
+    // Checkout button closes modal
+    document.querySelector('a.checkout-btn').addEventListener('click', () => {
+      closeCartModal();
+    });
+
+    // Initial function call
+    document.addEventListener('DOMContentLoaded', checkAuthAndLoadProducts);
+    // If you have product cards on this page, uncomment and adjust this:
+    // document.body.addEventListener('click', handleAddToCart); 
+  </script>
+</body>
+</html>
