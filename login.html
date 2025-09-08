@@ -1,165 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login | Supabase</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Supabase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-    /* Background Gradient Animation */
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    background: linear-gradient(120deg, #1a1a1a, #343434, #e0e0e0);
-      background-size: 300% 300%;
-      animation: gradientShift 12s ease infinite;
-      min-height: 100vh;
-      padding: 1rem;
-    }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-   .login-container {
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-    border: 1px solid #e5e7eb;
-    position: relative;
-    overflow: hidden;
-    z-index: 0; /* ensure container creates a stacking context */
-  }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-  .login-container::before {
-    content: "";
-    position: absolute;
-    top: -40%;
-    left: -40%;
-    width: 180%;
-    height: 180%;
-  background: linear-gradient(120deg, #1a1a1a, #343434, #e0e0e0);
-    opacity: 0.15;
-    animation: pulseGlow 3s infinite alternate;
-    z-index: -1; /* push it behind everything */
-  }
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Black to dark grey gradient */
+            background: linear-gradient(-45deg, #000000, #1a1a1a, #333333, #1a1a1a);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            padding: 1rem;
+        }
 
-  
-    @keyframes pulseGlow {
-      0% { opacity: 0.15; }
-      100% { opacity: 0.25; }
-    }
-    .login-container h1 {
-      letter-spacing: 1px;
-      animation: fadeInDown 1s;
-    }
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-30px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    input:focus {
-      border-color: #6366f1;
-      box-shadow: 0 0 0 3px #a5b4fc;
-      transition: box-shadow 0.3s, border-color 0.3s;
-    }
-    button {
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Loading Screen Overlay */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000000; /* Solid black for loading */
+            z-index: 100;
+            opacity: 1;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        #loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #loading-logo {
+            width: 120px;
+            /* White logo for loading screen */
+            filter: invert(100%); 
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); filter: invert(100%) drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)); }
+            50% { transform: scale(1.1); filter: invert(100%) drop-shadow(0 0 20px rgba(255, 255, 255, 0.8)); }
+        }
+
+        /* Main Login Container */
+        .login-container {
+            background: rgba(255, 255, 255, 0.05); /* Very subtle white for frosted effect */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6); /* Darker shadow */
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .login-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Pulsing Border Effect - now in shades of grey */
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            border-radius: 12px;
+            background: black; /* Grey gradient for border */
+            background-size: 400% 400%;
+            animation: pulseBorder 5s ease infinite;
+            z-index: -1;
+            opacity: 0.8;
+            filter: blur(6px); /* Slightly less blur */
+        }
+        input#email {
+    color: white;
+}
+input#password {
+    color: white;
+}
+button.font-bold.py-2.px-4.rounded.w-full.shadow-md {
+    background-color: white;
+}
+        @keyframes pulseBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
         
-      transition: background 0.3s, transform 0.2s;
-    }
-    button:active {
-      transform: scale(0.97);
-    }
-    button:hover {
-      background: linear-gradient(90deg, #6366f1 0%, #2563eb 100%);
-      box-shadow: 0 4px 16px 0 rgba(99,102,241,0.15);
-    }
-    .login-container form {
-      position: relative;
-      z-index: 1;
-      animation: fadeInUp 1.2s;
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    #loginError {
-      animation: shake 0.4s;
-    }
-    @keyframes shake {
-      0% { transform: translateX(0);}
-      25% { transform: translateX(-5px);}
-      50% { transform: translateX(5px);}
-      75% { transform: translateX(-5px);}
-      100% { transform: translateX(0);}
-    }
-  </style>
+        .form-logo {
+            width: 80px;
+            margin: 0 auto 1.5rem auto;
+            opacity: 0;
+            transform: scale(0.8);
+            /* White logo for form */
+            filter: invert(100%); 
+            animation: logo-fade-in 1s forwards ease-out 0.8s;
+        }
+
+        @keyframes logo-fade-in {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .form-title {
+            color: #ffffff; /* White title */
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* White glow */
+            animation: fadeInDown 1.5s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        input {
+            background: rgba(255, 255, 255, 0.08); /* Darker input background */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff; /* White input text */
+            transition: all 0.3s;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.5); /* Lighter placeholder */
+        }
+
+        input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #888888; /* Grey border on focus */
+            box-shadow: 0 0 0 2px #555555, 0 0 10px rgba(255, 255, 255, 0.3); /* Grey/white glow */
+        }
+
+        label {
+            color: #dddddd; /* Light grey labels */
+        }
+
+        button {
+            background: linear-gradient(135deg, #333333, #666666); /* Dark to light grey button */
+            color: white;
+            border: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #444444, #777777); /* Slightly lighter on hover */
+        }
+
+        button:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #loginError {
+            color: #ffcccc; /* Light red for error */
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 3px solid #ff0000;
+            padding: 0.5rem;
+            border-radius: 4px;
+            animation: shake 0.4s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+
+        .signup-link {
+            color: #bbbbbb; /* Light grey link text */
+        }
+
+        .signup-link a {
+            color: #eeeeee; /* White link */
+            transition: color 0.3s;
+        }
+
+        .signup-link a:hover {
+            color: #ffffff; /* Brighter white on hover */
+            text-decoration: underline;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-  <div class="login-container bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-    <h1 class="text-3xl font-extrabold mb-6 text-indigo-700 text-center drop-shadow">Login</h1>
-    
-    <!-- Login Form -->
-    <form id="loginForm" class="space-y-6">
-      <div>
-        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
-        <input type="email" id="email" 
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none transition-all duration-300"
-          required>
-      </div>
-      <div>
-        <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
-        <input type="password" id="password" 
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none transition-all duration-300"
-          required>
-      </div>
-      <div id="loginError" class="text-red-500 text-sm hidden"></div>
-     <button 
-  type="submit" 
-  class="text-white font-bold py-2 px-4 rounded w-full transition-all duration-300 shadow-md"
-  style="background: linear-gradient(135deg, #000000, #3b3e41);"
->
-  Login
-</button>
-    </form>
+<body>
 
-    <!-- Signup Redirect -->
-    <p class="text-center text-gray-600 text-sm mt-6">
-      Don’t have an account? 
-      <a href="signup.html" class="text-indigo-600 font-semibold hover:underline">Sign up here</a>
-    </p>
-  </div>
+    <div id="loading-screen">
+        <img id="loading-logo" src="logo-black.png" alt="Supabase Logo">
+    </div>
 
-  <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    <div class="login-container">
+        <img src="logo-black.png" alt="Supabase Logo" class="form-logo" />
 
-    const supabaseUrl = 'https://aiwthvlhyyjplajtrhob.supabase.co'
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpd3RodmxoeXlqcGxhanRyaG9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5NzUwNzQsImV4cCI6MjA3MjU1MTA3NH0.sjZoaEqik_YZJ_S4KDKaDAy5jlxquxzJGwvCrLPOcRQ'
-  const supabase = createClient(supabaseUrl, supabaseKey)
+        <form id="loginForm" class="space-y-6" novalidate>
+            <h1 class="text-3xl font-extrabold text-center drop-shadow form-title">Login</h1>
+            <div>
+                <label for="email" class="block text-sm font-bold mb-2">Email:</label>
+                <input
+                    type="email"
+                    id="email"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none"
+                    required
+                />
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-bold mb-2">Password:</label>
+                <input
+                    type="password"
+                    id="password"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none"
+                    required
+                />
+            </div>
+            <div id="loginError" class="text-sm hidden"></div>
+            <button
+                type="submit"
+                class="font-bold py-2 px-4 rounded w-full shadow-md"
+            >
+                Login
+            </button>
+        </form>
+        <p class="text-center text-sm mt-6 signup-link">
+            Don’t have an account?
+            <a href="signup.html" class="font-semibold hover:underline">Sign up here</a>
+        </p>
+    </div>
 
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+    <script type="module">
+        import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const supabaseUrl = "https://aiwthvlhyyjplajtrhob.supabase.co";
+        const supabaseKey =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpd3RodmxoeXlqcGxhanRyaG9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5NzUwNzQsImV4cCI6MjA3MjU1MTA3NH0.sjZoaEqik_YZJ_S4KDKaDAy5jlxquxzJGwvCrLPOcRQ";
+        const supabase = createClient(supabaseUrl, supabaseKey);
 
-      if (error) {
-        const errDiv = document.getElementById('loginError');
-        errDiv.textContent = error.message;
-        errDiv.classList.remove('hidden');
-        errDiv.style.animation = 'shake 0.4s';
-        setTimeout(() => { errDiv.style.animation = ''; }, 400);
-      } else {
-        document.getElementById('loginError').classList.add('hidden');
-        window.location.href = 'homepage.html';
-      }
-    });
-  </script>
+        const loadingScreen = document.getElementById('loading-screen');
+        const loginContainer = document.querySelector('.login-container');
+
+        // Hide loading screen and show login form after 2 seconds
+        setTimeout(() => {
+            loadingScreen.classList.add('fade-out');
+            loginContainer.classList.add('visible');
+        }, 2000); // 2000ms = 2 seconds
+
+        // Existing login form submission logic
+        const loginForm = document.getElementById("loginForm");
+        loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            const { error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            });
+
+            if (error) {
+                const errDiv = document.getElementById("loginError");
+                errDiv.textContent = error.message;
+                errDiv.classList.remove("hidden");
+                errDiv.style.animation = "shake 0.4s";
+                setTimeout(() => {
+                    errDiv.style.animation = "";
+                }, 400);
+            } else {
+                document.getElementById("loginError").classList.add("hidden");
+                window.location.href = "homepage.html";
+            }
+        });
+    </script>
 </body>
-</html> 
+</html>
